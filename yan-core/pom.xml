@@ -11,5 +11,15 @@
 
     <artifactId>yan-core</artifactId>
 
+    <dependencies>
+
+        <dependency>
+            <groupId>com.yan</groupId>
+            <artifactId>yan-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
+
 
 </project>
