@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ Copyright (c) 2017 Yanzheng [https://github.com/micyo202/yan-demo]
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- 自动将控制器加载到bean -->
+	<context:component-scan base-package="com.yan" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+	<!-- 导入 spring-beans 配置 -->
+	<import resource="classpath:spring/config/spring-beans.xml" />
+	
+	<!-- 开启面向切面代理（自定义切面） -->
+	<aop:aspectj-autoproxy />
+
+	<!-- 自动注册 DefaultAnnotationHandlerMapping 与 AnnotationMethodHandlerAdapter 两个 bean, 解决了 @Controller 注解的使用前提配置 -->
+	<mvc:annotation-driven />
+	
+	<!-- 在 Controller 中开启生命式事物，在 @Controller 下的方法上使用 @Transactional -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- 根目录'/'对应页面 index.jsp 后缀名 .jsp 由视图解析器添加 -->
+	<mvc:view-controller path="/" view-name="/index"/>
+	
+	<!-- 配置视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/views/" />
+		<property name="suffix" value=".jsp" />
+		<property name="contentType" value="text/html; charset=utf-8" />
+		<!-- 可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 -->
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+	</bean>
+
+	<!-- 返回json 需导入 jackson-annotations.jar，jackson-core.jar，jackson-databind.jar -->
+	<!-- 通过处理器映射DefaultAnnotationHandlerMapping来开启支持@Controller注解 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+	<!-- 通过处理器适配器AnnotationMethodHandlerAdapter来开启支持@RequestMapping注解 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<!-- 配置返回字符串编码 -->
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/html; charset=UTF-8</value>
+							<value>application/json;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+				<!-- 配置 json 转换器 -->
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/html; charset=UTF-8</value>
+							<value>application/json;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 配置文件上传 resolveLazily属性启用是为了推迟文件解析，以便捕获文件大小异常 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" />
+		<!-- 20*1024*1024即10M -->
+		<property name="maxUploadSize" value="20971520" />
+		<property name="maxInMemorySize" value="4096" />
+		<property name="resolveLazily" value="true"/>
+	</bean>
+
+	<!-- 配置 Login 登录拦截器（改为 shrio 安全认证模式） -->
+	<!-- 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/resources/**" />
+			<bean class="com.yan.core.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	 -->
+
+	<!-- 配置spring处理静态资源文件 两种方案 -->
+    <!--方案一: 将静态资源的处理经由Spring MVC框架交回Web应用服务器服务器默认的defaultServlet处理 -->
+    <!-- 
+	<mvc:default-servlet-handler />
+	 -->
+	<!--(推荐方案)方案二: 把images/**映射到ResourceHttpRequestHandler进行处理 -->
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+	
+	<!-- springMVC 异常处理（由于无法处理404异常，404由web.xml处理） -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">redirect:/views/error.jsp</prop>
+			</props>
+		</property>
+		<property name="defaultErrorView" value="redirect:/views/error.jsp" />
+		<property name="defaultStatusCode" value="500" />
+	</bean>
+
+</beans>
