@@ -25,6 +25,7 @@ package com.yan.common.support;
 
 import java.io.*;
 import java.math.BigInteger;
+import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
