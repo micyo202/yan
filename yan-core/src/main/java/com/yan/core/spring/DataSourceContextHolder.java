@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Yanzheng [https://github.com/micyo202/yan-demo]
+ * Copyright (c) 2017 Yanzheng [https://github.com/micyo202/yan]
  * 
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the

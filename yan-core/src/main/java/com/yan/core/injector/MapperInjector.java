@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Yanzheng [https://github.com/micyo202/yan-demo]
+ * Copyright (c) 2017 Yanzheng [https://github.com/micyo202/yan]
  * 
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,8 +23,8 @@
  */
 package com.yan.core.injector;
 
-import com.yan.api.persistence.impl.DelegateMapperImpl;
 import com.yan.core.annotation.MapperInject;
+import com.yan.core.persistence.DelegateMapperImpl;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
