@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <display-name>yan-web</display-name>
+
+    <!-- 过滤器解决中文乱码问题、强制编码 UTF-8 -->
+    <filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceRequestEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- 配置 springMVC 基本配置 -->
+    <servlet>
+        <servlet-name>springMVC</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/springMVC-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springMVC</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- 配置 spring 监听器 -->
+    <!-- needed for ContextLoaderListener -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/applicationContext.xml</param-value>
+    </context-param>
+    <!-- Bootstraps the root web application context before servlet initialization -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- shiro 认证过滤器 -->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- 配置 Druid 监控的数据  -->
+    <filter>
+        <filter-name>DruidWebStatFilter</filter-name>
+        <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+        <init-param>
+            <param-name>exclusions</param-name>
+            <param-value>/resources/*,/druid/*</param-value>
+        </init-param>
+        <init-param>
+            <param-name>principalSessionName</param-name>
+            <param-value>user</param-value>
+        </init-param>
+        <init-param>
+            <param-name>profileEnable</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>DruidWebStatFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- 配置 Druid 监控信息显示页面 -->
+    <servlet>
+        <servlet-name>DruidStatView</servlet-name>
+        <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+        <!-- 允许清空统计数据 -->
+        <!--
+        <init-param>
+            <param-name>resetEnable</param-name>
+            <param-value>true</param-value>
+           </init-param>
+            -->
+        <!-- 用户名 -->
+        <!--
+        <init-param>
+         <param-name>loginUsername</param-name>
+         <param-value>druid</param-value>
+        </init-param>
+         -->
+        <!-- 密码 -->
+        <!--
+     <init-param>
+         <param-name>loginPassword</param-name>
+         <param-value>druid</param-value>
+        </init-param>
+         -->
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DruidStatView</servlet-name>
+        <url-pattern>/druid/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- 配置 session 失效时间 -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <!-- 配置欢迎页 -->
+    <welcome-file-list>
+        <welcome-file>views/index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- 配置错误页 -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404/error</location>
+    </error-page>
+
+</web-app>
