@@ -16,8 +16,8 @@
         <module>yan-api</module>
         <module>yan-common</module>
         <module>yan-core</module>
-        <module>yan-demo</module>
         <module>yan-web</module>
+        <module>yan-model</module>
     </modules>
 
     <properties>
