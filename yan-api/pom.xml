@@ -14,14 +14,19 @@
 
     <dependencies>
 
+        <!-- 添加 yan-model 依赖包 -->
+        <dependency>
+            <groupId>com.yan</groupId>
+            <artifactId>yan-model</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!-- 添加 yan-common 依赖包 -->
         <dependency>
             <groupId>com.yan</groupId>
             <artifactId>yan-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
-        <!-- 添加 spring framework 依赖包 -->
+        <!-- 添加 spring-framework 依赖包 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
