@@ -11,7 +11,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/micyo202/yan.svg?style=social&label=Stars)](https://github.com/micyo202/yan)
 [![GitHub forks](https://img.shields.io/github/forks/micyo202/yan.svg?style=social&label=Fork)](https://github.com/micyo202/yan)
 
-本项目是一个基于 **SpringMVC+Spring+MyBatis（SSM）** 支持分布式的高效率便捷开发框架，使开发人员更专注于业务，达到面向业务开发。<br>
+本项目是一个基于 **SpringMVC+Spring+MyBatis（SSM）** 支持**分布式**的高效率便捷开发框架，使开发人员更专注于业务，达到面向业务开发。<br>
 项目使用 **Maven** 构建，便于项目管理，可支持 **Oracle、MySql** 等主流数据库。<br>
 项目模块化分层明确，便于后期维护等工作。<br>
 前端展示界面采用基于 **Boostrap** 实现的响应式布局，并集成了一系列的动画效果插件，整体界面简洁、美观大方并可优雅的与后台完成交互操作。<br>
