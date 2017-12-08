@@ -1,10 +1,12 @@
 # Yan 项目简介（Instruction）
 
+### [English](https://github.com/micyo202/yan/blob/master/README_EN.md) [中文文档](https://github.com/micyo202/yan/blob/master/README.md)
+
 <p align="center" >
   <img src="https://github.com/micyo202/yan/raw/master/yan-web/src/main/webapp/resources/images/logo.png" alt="Yan" title="Yan">
 </p>
 
-[![Beta](https://img.shields.io/badge/beta-0.0.1-brightgreen.svg)](https://github.com/micyo202/yan)
+[![Beta](https://img.shields.io/badge/beta-0.0.2-brightgreen.svg)](https://github.com/micyo202/yan)
 [![Downloads](https://img.shields.io/badge/downloads-3.5MB-yellow.svg)](https://github.com/micyo202/yan/archive/master.zip)
 [![Since](https://img.shields.io/badge/since-2017-blue.svg)](https://github.com/micyo202/yan)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/micyo202/yan/blob/master/LICENSE)
@@ -90,7 +92,7 @@ yan -- 根目录
 ├── yan-core -- 核心模块
 |    ├── main -- 主模块路径
 |    |    ├── java -- java类路径
-|    |    |    ├── com.yan.core -- 核心类
+|    |    |    ├── com.yan.core -- 核心类包
 |    |    |    |    ├── annotation -- 注解类
 |    |    |    |    ├── aspect -- 切面类
 |    |    |    |    ├── controller -- 控制器
@@ -101,7 +103,7 @@ yan -- 根目录
 ├── yan-web -- web模块
 |    ├── main -- 主模块路径
 |    |    ├── java -- java类路径
-|    |    |    ├── com.yan.controller -- 业务处理控制器
+|    |    |    ├── com.yan.controller -- 业务处理控制器包
 |    |    ├── resources -- 资源配置路径
 |    |    |    ├── database -- 数据库sql文件
 |    |    |    ├── properties -- 项目配置文件
@@ -120,9 +122,9 @@ yan -- 根目录
 > 5. 完成以上步骤就可以正常部署启动服务了（使用 **jetty / tomcat** 均可）*[详细部署过程在这里就不多做阐述了]*，接下来进入开发阶段
 > 6. 根据实际业务需求，在对应的数据库中创建业务表，表命名规范：“模块名_表名” 如：**SYS_RESOURCE**（系统模块资源表）
 > 7. 修改 **yan-web** 中 **resources** 路径下的 **generatorConfig.xml** 中的 *targetPackage* 包名及 *tableName* 表名，使用 **MyBatis generator** 插件生成对应的持久层模块代码（Maven 执行命令：**mvn mybatis-generator:generate**），具体配置请参考[MyBatis GeneratorXML Configuration](http://www.mybatis.org/generator/configreference/xmlconfig.html)，注：请将所有业务对象模型 **Model** 生成在 **yan-model** 模块下，所有 **mapper接口** 及 **sql映射xml** 生成在 **yan-api** 模块下
-> 8. 在 **yan-web** 模块中 **src/main/java** 下创建对应的 **controller** 控制器，该控制器类命名规范以 **Controller** 结尾，并继承于 **BaseController** 类，所有的业务操作基本都是在这里完成
+> 8. 在 **yan-web** 模块中 **src/main/java** 路径下创建对应的 **controller** 控制器，该控制器类命名规范以 **Controller** 结尾，并继承于 **BaseController** 类，所有的业务操作基本都是在这里完成
 > 9. 编写控制器业务处理代码，具体使用参考 - 七、示例代码
-> 10. 在 **yan-web** 模块中 **src/main/webapp/views** 下创建对应的jsp页面，并编写前端页面展示代码
+> 10. 在 **yan-web** 模块中 **src/main/webapp/views** 路径下创建对应的jsp页面，并编写前端页面展示代码
 
 ## 五、配置说明（Properties）
 | 名称（Key值）| 描述 |
