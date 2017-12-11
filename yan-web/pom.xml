@@ -92,6 +92,13 @@
             <version>1.6.1</version>
         </dependency>
 
+        <!-- 添加 solrj 依赖包 -->
+        <dependency>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-solrj</artifactId>
+            <version>7.1.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
