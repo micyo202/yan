@@ -18,6 +18,7 @@
         <module>yan-core</module>
         <module>yan-web</module>
         <module>yan-model</module>
+        <module>yan-test</module>
     </modules>
 
     <properties>
