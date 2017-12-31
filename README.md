@@ -40,6 +40,7 @@ AspectJ | 1.8.13 | [http://www.eclipse.org/aspectj/](http://www.eclipse.org/aspe
 MyBatis | 3.4.5 | [http://www.mybatis.org/mybatis-3/zh/index.html](http://www.mybatis.org/mybatis-3/zh/index.html)
 MyBatis Generator | 1.3.5 | [http://www.mybatis.org/generator/index.html](http://www.mybatis.org/generator/index.html)
 PageHelper | 5.1.2 | [http://git.oschina.net/free/Mybatis_PageHelper](http://git.oschina.net/free/Mybatis_PageHelper)
+Solr | 7.1.0 | [https://lucene.apache.org/solr/](https://lucene.apache.org/solr/)
 Druid | 1.1.5 | [https://github.com/alibaba/druid](https://github.com/alibaba/druid)
 Jackson | 2.9.2 | [https://github.com/FasterXML/jackson](https://github.com/FasterXML/jackson)
 Dom4j | 1.6.1 | [http://www.dom4j.org](http://www.dom4j.org)
