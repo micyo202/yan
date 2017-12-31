@@ -26,7 +26,7 @@ public class ApnsJunit {
                 .badge(1) // 应用角标
                 .build();
 
-        String token = "67d05295750c8a324cfb534fc2a4698b99b66f7c1094ccd48c55dcce5c8edd4e";
+        String token = "eb0209d8ae5beccbc87c81a95f717a1fcf85ca0c413c14295464600da079eb12";
 
         service.push(token, payload);
 
