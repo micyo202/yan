@@ -50,6 +50,7 @@
         <plugins>
 
             <!-- 添加 maven-compiler-plugin 插件（命令运行方式：进入工程目录执行：mvn install/mvn compile 进行编译） -->
+            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -60,6 +61,7 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
+            -->
 
             <!-- 添加 mybatis-generator 插件（命令运行方式：进入工程目录执行：mvn mybatis-generator:generate 生成代码） -->
             <plugin>
