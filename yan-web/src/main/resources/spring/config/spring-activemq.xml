@@ -17,9 +17,9 @@
     -->
     <!-- 方法二：普通方式进行配置 -->
     <bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-        <property name="brokerURL" value="tcp://localhost:61616"/>
-        <property name="userName" value="admin"/>
-        <property name="password" value="admin"/>
+        <property name="brokerURL" value="${amq.brokerURL}"/>
+        <property name="userName" value="${amq.userName}"/>
+        <property name="password" value="${amq.password}"/>
     </bean>
 
     <!-- Spring Caching连接工厂 -->
