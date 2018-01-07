@@ -42,7 +42,7 @@
     <!-- needed for ContextLoaderListener -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring/applicationContext.xml, classpath:spring/applicationContext-activeMQ.xml</param-value>
+        <param-value>classpath:spring/applicationContext.xml</param-value>
     </context-param>
     <!-- Bootstraps the root web application context before servlet initialization -->
     <listener>
