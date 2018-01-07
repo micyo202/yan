@@ -1,14 +1,15 @@
-package com.yan.test;
+package com.yan.apns;
 
 import com.notnoop.apns.APNS;
 import com.notnoop.apns.ApnsService;
-import org.junit.Test;
 
-public class ApnsJunit {
+public class ApnsTest {
 
-    @Test
-    public void test(){
-
+    /**
+     * 苹果APNS消息推送（notnoop无等待）
+     * @param args
+     */
+    public static void main(String[] args) {
         ApnsService service =
                 APNS.newService()
                         .withCert("/Users/apple/Desktop/Push Certificate/Development/apns-development.p12", "123") // 指定p12文件及密钥
@@ -29,7 +30,6 @@ public class ApnsJunit {
         String token = "eb0209d8ae5beccbc87c81a95f717a1fcf85ca0c413c14295464600da079eb12";
 
         service.push(token, payload);
-
     }
 
 }
