@@ -6,7 +6,7 @@
   <img src="https://github.com/micyo202/yan/raw/master/yan-web/src/main/webapp/resources/images/logo.png" alt="Yan" title="Yan">
 </p>
 
-[![Beta](https://img.shields.io/badge/beta-0.0.2-brightgreen.svg)](https://github.com/micyo202/yan)
+[![Beta](https://img.shields.io/badge/beta-0.0.4-brightgreen.svg)](https://github.com/micyo202/yan)
 [![Downloads](https://img.shields.io/badge/downloads-3.5MB-yellow.svg)](https://github.com/micyo202/yan/archive/master.zip)
 [![Since](https://img.shields.io/badge/since-2017-blue.svg)](https://github.com/micyo202/yan)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/micyo202/yan/blob/master/LICENSE)
@@ -19,6 +19,12 @@
 前端展示界面采用基于 **Boostrap** 实现的响应式布局，并集成了一系列的动画效果插件，整体界面简洁、美观大方并可优雅的与后台完成交互操作。<br>
 项目目标是为中小型企业打造全方位的J2EE企业级开发解决方案，提高工作效率。<br>
 该项目是[yan-demo](https://github.com/micyo202/yan-demo)单节点项目的**升级版**，支持**分布式**，持续更新中，敬请期待...。
+
+## 近期更新内容
+* **beta 0.0.4：添加ActiveMQ消息服务（仅测试）**
+* beta 0.0.3：添加搜索引擎服务（初期，负责搜索可进行二次开发，后期本人会抽空完善）
+* beta 0.0.2：优化整体代码，添加注释，更清晰易懂
+* beta 0.0.1：项目重构，保存原有[yan-demo](https://github.com/micyo202/yan-demo)项目功能，优化项目结构、模块拆分
 
 ## 一、项目开发环境&工具（Environment&Tools）
 * MacOS Sierra / Windows 7
@@ -41,6 +47,7 @@ MyBatis | 3.4.5 | [http://www.mybatis.org/mybatis-3/zh/index.html](http://www.my
 MyBatis Generator | 1.3.5 | [http://www.mybatis.org/generator/index.html](http://www.mybatis.org/generator/index.html)
 PageHelper | 5.1.2 | [http://git.oschina.net/free/Mybatis_PageHelper](http://git.oschina.net/free/Mybatis_PageHelper)
 Solr | 7.1.0 | [https://lucene.apache.org/solr/](https://lucene.apache.org/solr/)
+ActiveMQ | 5.15.2 | [http://activemq.apache.org](http://activemq.apache.org)
 Druid | 1.1.5 | [https://github.com/alibaba/druid](https://github.com/alibaba/druid)
 Jackson | 2.9.2 | [https://github.com/FasterXML/jackson](https://github.com/FasterXML/jackson)
 Dom4j | 1.6.1 | [http://www.dom4j.org](http://www.dom4j.org)
@@ -86,6 +93,7 @@ yan -- 根目录
 |    ├── main -- 主模块路径
 |    |    ├── java -- java类路径
 |    |    |    ├── com.yan.api -- 接口类包
+|    |    |    |    ├── jms -- 消息服务接口
 |    |    |    |    ├── mapper -- 业务类的接口包（使用mbg生成的接口/自定义业务接口）
 |    |    |    |    ├── persistence -- 持久化接口包
 |    |    ├── resources -- 资源配置路径
@@ -98,6 +106,8 @@ yan -- 根目录
 |    |    |    |    ├── aspect -- 切面类
 |    |    |    |    ├── controller -- 控制器
 |    |    |    |    ├── injector -- 注入类
+|    |    |    |    ├── jms -- 消息服务接口实现类
+|    |    |    |    ├── listener -- 消息消费者监听器
 |    |    |    |    ├── persistence -- 持久化接口实现类
 |    |    |    |    ├── shiro -- 安全认证类
 |    |    |    |    ├── spring -- spring扩展类
@@ -132,8 +142,14 @@ yan -- 根目录
 | --- | :--- |
 | **setting.upload** | 文件上传路径（绝对路径） |
 |- |- |
-| **logback.path** | 日志存放路径（绝对路径） |
 | **logback.name** | 日志前缀名称（一般使用项目名称，便于区分） |
+| **logback.path** | 日志存放路径（绝对路径） |
+|- |- |
+| **solr.builder** | Solr搜索引擎服务地址 |
+|- |- |
+| **amq.brokerURL** | activeMQ服务地址 |
+| **amq.userName** | activeMQ管理端用户名 |
+| **amq.password** | activeMQ管理端密码 |
 |- |- |
 | **mbg.jar** | mgb插件链接数据库所需的jar包（绝对路径） |
 | **mbg.path** | 生成代码的路径（绝对路径） |
