@@ -6,7 +6,7 @@
   <img src="https://github.com/micyo202/yan/raw/master/yan-web/src/main/webapp/resources/images/logo.png" alt="Yan" title="Yan">
 </p>
 
-[![Beta](https://img.shields.io/badge/beta-0.0.1-brightgreen.svg)](https://github.com/micyo202/yan)
+[![Beta](https://img.shields.io/badge/beta-0.0.4-brightgreen.svg)](https://github.com/micyo202/yan)
 [![Downloads](https://img.shields.io/badge/downloads-3.5MB-yellow.svg)](https://github.com/micyo202/yan/archive/master.zip)
 [![Since](https://img.shields.io/badge/since-2017-blue.svg)](https://github.com/micyo202/yan)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/micyo202/yan/blob/master/LICENSE)
@@ -19,6 +19,12 @@ The modular layer of the project is clear, which is convenient for later mainten
 The front-end display interface based on **Boostrap** responsive layout, and integration of a series of animation effects plug-ins, the interface simple, beautiful and elegant finish interactions with the background..<br>
 The goal of the project is to build a comprehensive J2EE enterprise development solution for small and medium-sized enterprises, and improve work efficiency.<br>
 The project is [yan-demo](https://github.com/micyo202/yan-demo) Single node project **upgrade**，support **distributed**, continuous update, please look forward to...。
+
+## Recent Updates
+* **beta 0.0.4：add ActiveMQ message service (testing only)**
+* beta 0.0.3：add search engine service (in the early stage, responsible for searching for the second development, later I will make a good time)
+* beta 0.0.2：Optimize the overall code, add comments, and make it easier to understand
+* beta 0.0.1：project reconstruction, save the original [yan-demo](https://github.com/micyo202/yan-demo) project function, optimize the project structure, the module split
 
 ## Environment & Tools
 * MacOS Sierra / Windows 7
@@ -41,6 +47,7 @@ MyBatis | 3.4.5 | [http://www.mybatis.org/mybatis-3/zh/index.html](http://www.my
 MyBatis Generator | 1.3.5 | [http://www.mybatis.org/generator/index.html](http://www.mybatis.org/generator/index.html)
 PageHelper | 5.1.2 | [http://git.oschina.net/free/Mybatis_PageHelper](http://git.oschina.net/free/Mybatis_PageHelper)
 Solr | 7.1.0 | [https://lucene.apache.org/solr/](https://lucene.apache.org/solr/)
+ActiveMQ | 5.15.2 | [http://activemq.apache.org](http://activemq.apache.org)
 Druid | 1.1.5 | [https://github.com/alibaba/druid](https://github.com/alibaba/druid)
 Jackson | 2.9.2 | [https://github.com/FasterXML/jackson](https://github.com/FasterXML/jackson)
 Dom4j | 1.6.1 | [http://www.dom4j.org](http://www.dom4j.org)
@@ -86,6 +93,7 @@ yan -- root directory
 |    ├── main -- main module path
 |    |    ├── java -- java class path
 |    |    |    ├── com.yan.api -- interface class package
+|    |    |    |    ├── jms -- message service interface
 |    |    |    |    ├── mapper -- interface packages for business classes (interfaces/custom business interfaces generated using MBG)
 |    |    |    |    ├── persistence -- persistent interface package
 |    |    ├── resources -- resource configuration path
@@ -98,6 +106,8 @@ yan -- root directory
 |    |    |    |    ├── aspect -- aspect class
 |    |    |    |    ├── controller -- controller class
 |    |    |    |    ├── injector -- injector class
+|    |    |    |    ├── jms -- message service interface implements the class
+|    |    |    |    ├── listener -- message consumer listeners
 |    |    |    |    ├── persistence -- persistence interface implementation class
 |    |    |    |    ├── shiro -- security authentication class
 |    |    |    |    ├── spring -- spring extension class
@@ -132,8 +142,14 @@ yan -- root directory
 | --- | :--- |
 | **setting.upload** | File upload path (absolute path) |
 |- |- |
-| **logback.path** | Log storage path (absolute path) |
 | **logback.name** | Log prefix names (general use of project names for easy distinction) |
+| **logback.path** | Log storage path (absolute path) |
+|- |- |
+| **solr.builder** | solr search engine service address |
+|- |- |
+| **amq.brokerURL** | activeMQ server broker url |
+| **amq.userName** | activeMQ administrative user name |
+| **amq.password** | activeMQ administrative user password |
 |- |- |
 | **mbg.jar** | The required jar package for the MGB plug-in link database (absolute path) |
 | **mbg.path** | Path to generate code (absolute path) |
