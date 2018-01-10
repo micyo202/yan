@@ -14,7 +14,7 @@ import javax.jms.Session;
 /**
  * 名称：MessageSenderServiceImpl<br>
  * <p>
- * 描述：Jms消息发送服务接口实现类<br>
+ * 描述：Jms消息（生产者）发送服务接口实现类<br>
  *
  * @author Yanzheng 严正<br>
  * 时间：<br>
@@ -44,6 +44,30 @@ public class MessageSenderServiceImpl implements MessageSenderService {
     @Override
     public void sendTopic(Destination destination, String message) {
         jmsTopicTemplate.send(destination, new MessageCreator() {
+
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                return session.createTextMessage(message);
+            }
+
+        });
+    }
+
+    @Override
+    public void sendQueue(String name, String message) {
+        jmsQueueTemplate.send(name, new MessageCreator() {
+
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                return session.createTextMessage(message);
+            }
+
+        });
+    }
+
+    @Override
+    public void sendTopic(String name, String message) {
+        jmsTopicTemplate.send(name, new MessageCreator() {
 
             @Override
             public Message createMessage(Session session) throws JMSException {
