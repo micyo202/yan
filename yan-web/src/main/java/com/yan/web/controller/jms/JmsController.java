@@ -6,8 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.jms.Destination;
-
 /**
  * 名称：JmsController<br>
  * <p>
@@ -28,16 +26,26 @@ public class JmsController {
      */
     @Autowired
     private MessageSenderService queueSenderService;
+    // 方法一
+    private static final String queueDestination = "yan.queue";
+    // 方法二
+    /*
     @Autowired
     private Destination queueDestination;
+    */
 
     /**
      * pub/sub模型（发布/订阅）
      */
     @Autowired
     private MessageSenderService topicSenderService;
+    // 方法一
+    private static final String topicDestination = "yan.topic";
+    // 方法二
+    /*
     @Autowired
     private Destination topicDestination;
+    */
 
     /**
      * 队列消息测试方法
