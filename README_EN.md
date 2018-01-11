@@ -21,10 +21,10 @@ The goal of the project is to build a comprehensive J2EE enterprise development 
 The project is [yan-demo](https://github.com/micyo202/yan-demo) Single node project **upgrade**，support **distributed**, continuous update, please look forward to...。
 
 ## Recent Updates
-* **beta 0.0.4：add ActiveMQ message service (testing only)**
-* beta 0.0.3：add search engine service (in the early stage, responsible for searching for the second development, later I will make a good time)
-* beta 0.0.2：Optimize the overall code, add comments, and make it easier to understand
-* beta 0.0.1：project reconstruction, save the original [yan-demo](https://github.com/micyo202/yan-demo) project function, optimize the project structure, the module split
+* **beta 0.0.4：Add the JMS (ActiveMQ) message service (currently only test methods, no business flow at the moment, and refinement after the later period)**
+* beta 0.0.3：Add Solr search engine service (basic full-text search function, which can be redeveloped according to actual requirements, and then gradually improve myself)
+* beta 0.0.2：Optimize the overall code, add more comments, and make the structure clearer and the code easier to understand
+* beta 0.0.1：Refactor the original [yan-demo](https://github.com/micyo202/yan-demo) project, retain the original function, split the module and optimize the project structure
 
 ## Environment & Tools
 * MacOS Sierra / Windows 7
