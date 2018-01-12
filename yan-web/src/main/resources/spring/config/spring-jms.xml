@@ -12,18 +12,17 @@
     <!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供-->
     <!-- 如果连接网络：tcp://ip:61616；未连接网络：tcp://localhost:61616 以及用户名，密码-->
     <!-- 方法一：使用 Xbean 进行配置 -->
-    <!--
-    <amq:connectionFactory id="amqConnectionFactory" brokerURL="tcp://localhost:61616" userName="admin" password="admin" />
-    -->
+    <amq:connectionFactory id="amqConnectionFactory" brokerURL="${amq.brokerURL}" userName="${amq.userName}" password="${amq.password}" />
     <!-- 方法二：普通方式进行配置 -->
+    <!--
     <bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
         <property name="brokerURL" value="${amq.brokerURL}"/>
         <property name="userName" value="${amq.userName}"/>
         <property name="password" value="${amq.password}"/>
     </bean>
+    -->
 
     <!-- Spring Caching连接工厂 -->
-
     <!-- Spring用于管理真正的ConnectionFactory的ConnectionFactory -->
     <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
         <!-- 目标ConnectionFactory对应真实的可以产生JMS Connection的ConnectionFactory -->
@@ -35,8 +34,7 @@
     </bean>
 
 
-    <!-- Spring JmsTemplate 的消息生产者 start -->
-
+    <!-- ******配置 Spring JmsTemplate 的消息生产者****** Start -->
     <!-- 定义JmsTemplate的Queue类型 -->
     <bean id="jmsQueueTemplate" class="org.springframework.jms.core.JmsTemplate">
         <!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->
@@ -51,66 +49,60 @@
         <!-- pub/sub模型（发布/订阅） -->
         <property name="pubSubDomain" value="true"/>
     </bean>
+    <!-- ******配置 Spring JmsTemplate 的消息生产者****** End -->
 
-    <!--Spring JmsTemplate 的消息生产者 end -->
+
+    <!-- ******配置消息消费监听器****** Start -->
+    <!-- Queue消息监听器 -->
+    <bean id="queueMessageListener" class="com.yan.core.listener.QueueMessageListener"/>
+    <!-- Topic消息监听器 -->
+    <bean id="topicMessageListener" class="com.yan.core.listener.TopicMessageListener"/>
+    <!-- ******配置消息消费监听器****** End -->
 
 
-    <!-- 方法一：消息消费者（直接配置监听方式） start -->
-
+    <!-- 方法一：******消息消费者（直接配置监听方式）****** Start -->
     <!-- 定义Queue监听器 -->
-    <!--
-    <jms:listener-container destination-type="queue" container-type="default" connection-factory="connectionFactory"
-                            acknowledge="client">
-        <jms:listener destination="yan.queue" ref="queueDestination1" />
-        <jms:listener destination="yan.queue" ref="queueDestination2" />
+    <jms:listener-container destination-type="queue" container-type="default" connection-factory="connectionFactory" acknowledge="client">
+        <jms:listener destination="yan.queue" ref="queueMessageListener" />
     </jms:listener-container>
-    -->
     <!-- 定义Topic监听器 -->
-    <!--
-    <jms:listener-container destination-type="topic" container-type="default" connection-factory="connectionFactory"
-                            acknowledge="auto">
-        <jms:listener destination="yan.topic" ref="topicDestination1" />
-        <jms:listener destination="yan.topic" ref="topicDestination2" />
+    <jms:listener-container destination-type="topic" container-type="default" connection-factory="connectionFactory" acknowledge="auto">
+        <jms:listener destination="yan.topic" ref="topicMessageListener" />
     </jms:listener-container>
-    -->
-
-    <!-- 方法一：消息消费者（直接配置监听方式） end -->
+    <!-- 方法一：******消息消费者（直接配置监听方式）****** End -->
 
 
-    <!-- 方法二：消息消费者 start -->
-
+    <!-- 方法二：******消息消费者****** Start -->
     <!-- 定义Queue的消费者 -->
+    <!--
     <bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
         <constructor-arg value="yan.queue"/>
     </bean>
+    -->
     <!-- 定义Topic的消费者 -->
+    <!--
     <bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
         <constructor-arg value="yan.topic"/>
     </bean>
+    -->
 
-    <!-- 方法二：消息消费者 end -->
-
-
-    <!-- 配置消息监听器 start -->
-
-    <!-- Queue消息监听器 -->
-    <bean id="queueMessageListener" class="com.yan.core.listener.QueueMessageListener"/>
     <!-- Queue消息监听容器 -->
+    <!--
     <bean id="jmsQueueContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="connectionFactory"/>
         <property name="destination" ref="queueDestination"/>
         <property name="messageListener" ref="queueMessageListener"/>
     </bean>
-    <!-- Topic消息监听器 -->
-    <bean id="topicMessageListener" class="com.yan.core.listener.TopicMessageListener"/>
+    -->
     <!-- Topic消息监听容器 -->
+    <!--
     <bean id="jmsTopicContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="connectionFactory"/>
         <property name="destination" ref="topicDestination"/>
         <property name="messageListener" ref="topicMessageListener"/>
     </bean>
-
-    <!-- 配置消息监听器 end -->
+    -->
+    <!-- 方法二：******消息消费者****** End -->
 
 
 </beans>
