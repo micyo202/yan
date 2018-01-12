@@ -21,10 +21,10 @@
 该项目是[yan-demo](https://github.com/micyo202/yan-demo)单节点项目的**升级版**，支持**分布式**，持续更新中，敬请期待...。
 
 ## 近期更新内容
-* **beta 0.0.4：添加ActiveMQ消息服务（仅测试）**
-* beta 0.0.3：添加搜索引擎服务（初期，负责搜索可进行二次开发，后期本人会抽空完善）
-* beta 0.0.2：优化整体代码，添加注释，更清晰易懂
-* beta 0.0.1：项目重构，保存原有[yan-demo](https://github.com/micyo202/yan-demo)项目功能，优化项目结构、模块拆分
+* beta 0.0.4：添加JMS（ActiveMQ）消息服务（目前仅测试方法，暂无业务流转，后期逐渐完善细化）
+* beta 0.0.3：添加Solr搜索引擎服务（基本的全文检索功能，可根据实际需求情况进行二次开发，后期本人再逐渐完善）
+* beta 0.0.2：优化整体代码、添加更多注释，结构更清晰、代码更易懂
+* beta 0.0.1：将原有[yan-demo](https://github.com/micyo202/yan-demo)项目重构，保留原有功能，模块拆分、优化项目结构
 
 ## 一、项目开发环境&工具（Environment&Tools）
 * MacOS Sierra / Windows 7
@@ -76,7 +76,6 @@ BootstrapMenu | - | [https://mobirise.com/bootstrap-menu](https://mobirise.com/b
 device | - | [https://github.com/matthewhudson/device.js](https://github.com/matthewhudson/device.js)
 jquery | 3.2.1 | [http://jquery.com](http://jquery.com)
 jquery-cookie | - | [https://github.com/carhartl/jquery-cookie](https://github.com/carhartl/jquery-cookie)
-
 
 ## 三、项目结构（Construction）
 ```lua
