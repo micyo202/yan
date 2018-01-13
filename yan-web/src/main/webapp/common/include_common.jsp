@@ -15,5 +15,6 @@
 <script src="${pageContext.request.contextPath}/resources/plugins/zTree_v3-3.5.26-dist/js/jquery.ztree.excheck.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/plugins/bootstrapvalidator-0.5.3-dist/js/bootstrapValidator.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/plugins/bootstrapvalidator-0.5.3-dist/js/language/zh_CN.js"></script>
+<script src="${pageContext.request.contextPath}/resources/plugins/echarts-3.8.4-dist/echarts.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
