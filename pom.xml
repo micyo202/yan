@@ -31,6 +31,7 @@
         <shiro.version>1.4.0</shiro.version>
         <jackson.version>2.9.2</jackson.version>
         <logback.version>1.2.3</logback.version>
+        <activemq.version>5.15.2</activemq.version>
     </properties>
 
     <dependencies>
@@ -64,6 +65,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.7</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
         </dependency>
 
         <!-- 添加 spring 依赖包 -->
@@ -172,6 +178,12 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-core</artifactId>
             <version>${shiro.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.shiro</groupId>
@@ -192,6 +204,12 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-ehcache</artifactId>
             <version>${shiro.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- 添加 dom4j 依赖包（用于解析 xml）-->
@@ -211,24 +229,62 @@
                     <artifactId>commons-io</artifactId>
                     <groupId>commons-io</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
-        <!-- 添加 activemq 依赖包 -->
+        <!-- 方法一：添加 activemq 依赖包 -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
+            <version>${activemq.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jackson-databind</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-spring</artifactId>
+            <version>${activemq.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>xbean-spring</artifactId>
+                    <groupId>org.apache.xbean</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- 方法二：添加 activemq 依赖包（与 logback 有冲突） -->
+        <!--
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-all</artifactId>
-            <version>5.15.2</version>
+            <version>${activemq.version}</version>
         </dependency>
+        -->
 
-        <!-- 添加 Xbean 依赖包 -->
-        <!--
+        <!-- 添加 Xbean 依赖包（用于jms简化配置） -->
         <dependency>
             <groupId>org.apache.xbean</groupId>
             <artifactId>xbean-spring</artifactId>
             <version>4.6</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
-        -->
 
         <!-- 添加 servlet 依赖包 -->
         <dependency>
@@ -249,16 +305,20 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- 添加 slf4j 依赖包 -->
-        <!--
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.25</version>
         </dependency>
-        -->
 
     </dependencies>
 
