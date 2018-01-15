@@ -12,7 +12,7 @@ public class ApnsTest {
     public static void main(String[] args) {
         ApnsService service =
                 APNS.newService()
-                        .withCert("/Users/apple/Desktop/Push Certificate/Development/apns-development.p12", "123") // 指定p12文件及密钥
+                        .withCert("/Users/apple/Desktop/Push Certificate/Development/apns-development.p12", "密码") // 指定p12文件及密钥
                         .withSandboxDestination() // 使用苹果推送测试服务器
                         //.withProductionDestination() // 使用苹果推送生产服务器
                         .build();
