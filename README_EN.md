@@ -6,7 +6,7 @@
   <img src="https://github.com/micyo202/yan/raw/master/yan-web/src/main/webapp/resources/images/logo.png" alt="Yan" title="Yan">
 </p>
 
-[![Beta](https://img.shields.io/badge/beta-0.0.4-brightgreen.svg)](https://github.com/micyo202/yan)
+[![Beta](https://img.shields.io/badge/beta-0.0.5-brightgreen.svg)](https://github.com/micyo202/yan)
 [![Downloads](https://img.shields.io/badge/downloads-3.5MB-yellow.svg)](https://github.com/micyo202/yan/archive/master.zip)
 [![Since](https://img.shields.io/badge/since-2017-blue.svg)](https://github.com/micyo202/yan)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/micyo202/yan/blob/master/LICENSE)
@@ -21,7 +21,8 @@ The goal of the project is to build a comprehensive J2EE enterprise development 
 The project is [yan-demo](https://github.com/micyo202/yan-demo) Single node project **upgrade**，support **distributed**, continuous update, please look forward to...。
 
 ## Recent Updates
-* **beta 0.0.4：Add the JMS (ActiveMQ) message service (currently only test methods, no business flow at the moment, and refinement after the later period)**
+* **beta 0.0.5：The front end adds ECharts for graphical display**
+* beta 0.0.4：Add the JMS (ActiveMQ) message service (currently only test methods, no business flow at the moment, and refinement after the later period)
 * beta 0.0.3：Add Solr search engine service (basic full-text search function, which can be redeveloped according to actual requirements, and then gradually improve myself)
 * beta 0.0.2：Optimize the overall code, add more comments, and make the structure clearer and the code easier to understand
 * beta 0.0.1：Refactor the original [yan-demo](https://github.com/micyo202/yan-demo) project, retain the original function, split the module and optimize the project structure
@@ -64,6 +65,7 @@ bootstrap-datetimepicker | - | [http://www.bootcss.com/p/bootstrap-datetimepicke
 bootstrap-select | 1.12.4 | [http://silviomoreto.github.io/bootstrap-select/](http://silviomoreto.github.io/bootstrap-select/)
 bootstrap-table | 1.11.1 | [http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/](http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/)
 bootstrapvalidator | 0.5.3 | [https://github.com/nghuuphuoc/bootstrapvalidator/](https://github.com/nghuuphuoc/bootstrapvalidator/)
+ECharts | 3.8.4 | [http://echarts.baidu.com](http://echarts.baidu.com)
 font-awesome | 4.7.0 | [http://fontawesome.io/icons/](http://fontawesome.io/icons/)
 fontIconPicker | 2.0.0 | [https://codeb.it/fonticonpicker/](https://codeb.it/fonticonpicker/)
 fullPage | - | [https://alvarotrigo.com/fullPage/](https://alvarotrigo.com/fullPage/)
