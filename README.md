@@ -6,7 +6,7 @@
   <img src="https://github.com/micyo202/yan/raw/master/yan-web/src/main/webapp/resources/images/logo.png" alt="Yan" title="Yan">
 </p>
 
-[![Beta](https://img.shields.io/badge/beta-0.0.4-brightgreen.svg)](https://github.com/micyo202/yan)
+[![Beta](https://img.shields.io/badge/beta-0.0.5-brightgreen.svg)](https://github.com/micyo202/yan)
 [![Downloads](https://img.shields.io/badge/downloads-3.5MB-yellow.svg)](https://github.com/micyo202/yan/archive/master.zip)
 [![Since](https://img.shields.io/badge/since-2017-blue.svg)](https://github.com/micyo202/yan)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/micyo202/yan/blob/master/LICENSE)
@@ -21,6 +21,7 @@
 该项目是[yan-demo](https://github.com/micyo202/yan-demo)单节点项目的**升级版**，支持**分布式**，持续更新中，敬请期待...。
 
 ## 近期更新内容
+* **beta 0.0.5：前端添加ECharts，便于图形化展示**
 * beta 0.0.4：添加JMS（ActiveMQ）消息服务（目前仅测试方法，暂无业务流转，后期逐渐完善细化）
 * beta 0.0.3：添加Solr搜索引擎服务（基本的全文检索功能，可根据实际需求情况进行二次开发，后期本人再逐渐完善）
 * beta 0.0.2：优化整体代码、添加更多注释，结构更清晰、代码更易懂
@@ -64,6 +65,7 @@ bootstrap-datetimepicker | - | [http://www.bootcss.com/p/bootstrap-datetimepicke
 bootstrap-select | 1.12.4 | [http://silviomoreto.github.io/bootstrap-select/](http://silviomoreto.github.io/bootstrap-select/)
 bootstrap-table | 1.11.1 | [http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/](http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/)
 bootstrapvalidator | 0.5.3 | [https://github.com/nghuuphuoc/bootstrapvalidator/](https://github.com/nghuuphuoc/bootstrapvalidator/)
+ECharts | 3.8.4 | [http://echarts.baidu.com](http://echarts.baidu.com)
 font-awesome | 4.7.0 | [http://fontawesome.io/icons/](http://fontawesome.io/icons/)
 fontIconPicker | 2.0.0 | [https://codeb.it/fonticonpicker/](https://codeb.it/fonticonpicker/)
 fullPage | - | [https://alvarotrigo.com/fullPage/](https://alvarotrigo.com/fullPage/)
