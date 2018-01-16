@@ -26,13 +26,9 @@ package com.yan.core.jms;
 import com.yan.api.jms.MessageSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
 import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.Session;
 
 /**
  * 名称：MessageSenderServiceImpl<br>
@@ -56,47 +52,21 @@ public class MessageSenderServiceImpl implements MessageSenderService {
 
     @Override
     public void sendQueue(Destination destination, String message) {
-        jmsQueueTemplate.send(destination, new MessageCreator() {
-            @Override
-            public Message createMessage(Session session) throws JMSException {
-                return session.createTextMessage(message);
-            }
-        });
+        jmsQueueTemplate.send(destination, session -> session.createTextMessage(message));
     }
 
     @Override
     public void sendTopic(Destination destination, String message) {
-        jmsTopicTemplate.send(destination, new MessageCreator() {
-
-            @Override
-            public Message createMessage(Session session) throws JMSException {
-                return session.createTextMessage(message);
-            }
-
-        });
+        jmsTopicTemplate.send(destination, session -> session.createTextMessage(message));
     }
 
     @Override
     public void sendQueue(String name, String message) {
-        jmsQueueTemplate.send(name, new MessageCreator() {
-
-            @Override
-            public Message createMessage(Session session) throws JMSException {
-                return session.createTextMessage(message);
-            }
-
-        });
+        jmsQueueTemplate.send(name, session -> session.createTextMessage(message));
     }
 
     @Override
     public void sendTopic(String name, String message) {
-        jmsTopicTemplate.send(name, new MessageCreator() {
-
-            @Override
-            public Message createMessage(Session session) throws JMSException {
-                return session.createTextMessage(message);
-            }
-
-        });
+        jmsTopicTemplate.send(name, session -> session.createTextMessage(message));
     }
 }
