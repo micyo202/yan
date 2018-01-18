@@ -1,13 +1,13 @@
 package com.yan.web.controller.menu;
 
-import com.yan.api.mapper.menu.SysMenuMapper;
+import com.yan.dao.mapper.menu.SysMenuMapper;
 import com.yan.api.persistence.DelegateMapper;
 import com.yan.common.model.MsgModel;
 import com.yan.core.annotation.MapperInject;
 import com.yan.core.controller.BaseController;
-import com.yan.model.menu.MenuNode;
-import com.yan.model.menu.SysMenu;
-import com.yan.model.menu.SysMenuExample;
+import com.yan.dao.model.menu.MenuNode;
+import com.yan.dao.model.menu.SysMenu;
+import com.yan.dao.model.menu.SysMenuExample;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -36,7 +36,7 @@ import java.util.Map;
 @RequestMapping("/common/menu")
 public class MenuController extends BaseController {
 
-    private static final String NAMESPACE = "com.yan.api.mapper.menu.SysMenuCustomMapper";
+    private static final String NAMESPACE = "com.yan.dao.mapper.menu.SysMenuCustomMapper";
 
     /**
      * 使用注解获取 delegateMapper 对象

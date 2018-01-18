@@ -3,8 +3,8 @@ package com.yan.web.controller.login;
 import com.yan.api.persistence.DelegateMapper;
 import com.yan.core.annotation.MapperInject;
 import com.yan.core.controller.BaseController;
-import com.yan.model.login.LoginModel;
-import com.yan.model.login.LoginUser;
+import com.yan.dao.model.login.LoginModel;
+import com.yan.dao.model.login.LoginUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -52,7 +52,7 @@ public class LoginController extends BaseController {
         paramMap.put("userCode", username);
         paramMap.put("userPassword", password);
 
-        LoginUser loginUser = delegateMapper.selectOne("com.yan.api.mapper.login.LoginCustomMapper.getLoginUser", paramMap);
+        LoginUser loginUser = delegateMapper.selectOne("com.yan.dao.mapper.login.LoginCustomMapper.getLoginUser", paramMap);
 
         if (this.isNull(loginUser))
             return new LoginModel(0, "用户名、密码不正确！");
@@ -60,7 +60,7 @@ public class LoginController extends BaseController {
         if (Boolean.FALSE.equals(loginUser.getUserValid()))
             return new LoginModel(0, "该用户已失效！");
 
-        List<Map<String, Object>> userRoles = delegateMapper.selectList("com.yan.api.mapper.login.LoginCustomMapper.getUserRoles", loginUser.getUserId());
+        List<Map<String, Object>> userRoles = delegateMapper.selectList("com.yan.dao.mapper.login.LoginCustomMapper.getUserRoles", loginUser.getUserId());
         if (!this.isNull(userRoles))
             loginUser.setUserRoles(userRoles);
 

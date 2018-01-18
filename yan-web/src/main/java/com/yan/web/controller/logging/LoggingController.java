@@ -1,15 +1,15 @@
 package com.yan.web.controller.logging;
 
 import com.github.pagehelper.PageHelper;
-import com.yan.api.mapper.logging.LoggingEventExceptionMapper;
-import com.yan.api.mapper.logging.LoggingEventMapper;
-import com.yan.api.mapper.logging.LoggingEventPropertyMapper;
+import com.yan.dao.mapper.logging.LoggingEventExceptionMapper;
+import com.yan.dao.mapper.logging.LoggingEventMapper;
+import com.yan.dao.mapper.logging.LoggingEventPropertyMapper;
 import com.yan.common.model.MsgModel;
 import com.yan.common.model.PageModel;
 import com.yan.core.annotation.MapperInject;
 import com.yan.core.controller.BaseController;
-import com.yan.model.logging.LoggingEvent;
-import com.yan.model.logging.LoggingEventExample;
+import com.yan.dao.model.logging.LoggingEvent;
+import com.yan.dao.model.logging.LoggingEventExample;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;

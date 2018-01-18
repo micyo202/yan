@@ -1,12 +1,12 @@
 package com.yan.web.controller.role;
 
-import com.yan.api.mapper.role.RoleMenuRelMapper;
-import com.yan.api.mapper.role.SysRoleMapper;
+import com.yan.dao.mapper.role.RoleMenuRelMapper;
+import com.yan.dao.mapper.role.SysRoleMapper;
 import com.yan.api.persistence.DelegateMapper;
 import com.yan.common.model.MsgModel;
 import com.yan.core.annotation.MapperInject;
 import com.yan.core.controller.BaseController;
-import com.yan.model.role.*;
+import com.yan.dao.model.role.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -32,7 +32,7 @@ import java.util.*;
 @RequestMapping("/common/role")
 public class RoleController extends BaseController {
 
-    private static final String NAMESPACE = "com.yan.api.mapper.role.SysRoleCustomMapper";
+    private static final String NAMESPACE = "com.yan.dao.mapper.role.SysRoleCustomMapper";
 
     @MapperInject
     private DelegateMapper delegateMapper;

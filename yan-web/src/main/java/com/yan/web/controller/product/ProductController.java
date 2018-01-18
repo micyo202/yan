@@ -1,10 +1,10 @@
 package com.yan.web.controller.product;
 
-import com.yan.api.mapper.product.TbProductMapper;
+import com.yan.dao.mapper.product.TbProductMapper;
 import com.yan.common.model.PageModel;
 import com.yan.core.annotation.MapperInject;
 import com.yan.core.controller.BaseController;
-import com.yan.model.product.TbProduct;
+import com.yan.dao.model.product.TbProduct;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

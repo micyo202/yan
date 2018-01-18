@@ -4,7 +4,7 @@ import com.yan.api.persistence.DelegateMapper;
 import com.yan.core.annotation.LogInject;
 import com.yan.core.annotation.MapperInject;
 import com.yan.core.controller.BaseController;
-import com.yan.model.index.MenuModel;
+import com.yan.dao.model.index.MenuModel;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -112,7 +112,7 @@ public class IndexController extends BaseController {
             paramMap.put("userId", this.getSessionUser().getUserId());
 
             List<MenuModel> list = new ArrayList<>();
-            List<MenuModel> rootList = delegateMapper.selectList("com.yan.api.mapper.index.IndexCustomMapper.getMenu", paramMap);
+            List<MenuModel> rootList = delegateMapper.selectList("com.yan.dao.mapper.index.IndexCustomMapper.getMenu", paramMap);
             for (MenuModel menuModel : rootList) {
                 menuModel.setChildren(getMenu(menuModel.getId(), roleId));
                 list.add(menuModel);
@@ -135,7 +135,7 @@ public class IndexController extends BaseController {
         paramMap.put("userId", this.getSessionUser().getUserId());
 
         List<MenuModel> list = new ArrayList<>();
-        List<MenuModel> menuList = delegateMapper.selectList("com.yan.api.mapper.index.IndexCustomMapper.getMenu", paramMap);
+        List<MenuModel> menuList = delegateMapper.selectList("com.yan.dao.mapper.index.IndexCustomMapper.getMenu", paramMap);
         for (MenuModel menuModel : menuList) {
             if (!this.isNull(menuModel.getId())) {
                 menuModel.setChildren(getMenu(menuModel.getId(), roleId));

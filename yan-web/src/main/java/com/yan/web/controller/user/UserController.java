@@ -1,14 +1,14 @@
 package com.yan.web.controller.user;
 
-import com.yan.api.mapper.user.SysUserMapper;
-import com.yan.api.mapper.user.UserRoleRelMapper;
+import com.yan.dao.mapper.user.SysUserMapper;
+import com.yan.dao.mapper.user.UserRoleRelMapper;
 import com.yan.common.model.MsgModel;
 import com.yan.common.model.PageModel;
 import com.yan.core.annotation.MapperInject;
 import com.yan.core.controller.BaseController;
-import com.yan.model.user.SysUser;
-import com.yan.model.user.UserRoleRel;
-import com.yan.model.user.UserRoleRelExample;
+import com.yan.dao.model.user.SysUser;
+import com.yan.dao.model.user.UserRoleRel;
+import com.yan.dao.model.user.UserRoleRelExample;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
