@@ -191,7 +191,7 @@
     <!-- 配置事物切入点 -->
     <aop:config>
         <aop:pointcut expression="execution(* com.yan..*.controller..*.*(..))" id="dataSourcePointCut"/>
-        <aop:pointcut expression="execution(* com.yan.api.mapper..*.*(..))" id="pointCut"/>
+        <aop:pointcut expression="execution(* com.yan.dao.mapper..*.*(..))" id="pointCut"/>
         <aop:advisor advice-ref="dataSourceExchange" pointcut-ref="dataSourcePointCut" order="1"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="pointCut" order="2"/>
     </aop:config>
