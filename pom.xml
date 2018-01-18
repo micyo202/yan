@@ -16,9 +16,9 @@
         <module>yan-api</module>
         <module>yan-common</module>
         <module>yan-core</module>
-        <module>yan-web</module>
-        <module>yan-model</module>
+        <module>yan-dao</module>
         <module>yan-test</module>
+        <module>yan-web</module>
     </modules>
 
     <properties>
