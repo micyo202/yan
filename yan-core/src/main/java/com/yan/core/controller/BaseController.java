@@ -23,7 +23,7 @@
  */
 package com.yan.core.controller;
 
-import com.yan.model.login.LoginUser;
+import com.yan.dao.model.login.LoginUser;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.session.InvalidSessionException;
 import org.springframework.beans.factory.annotation.Autowired;
