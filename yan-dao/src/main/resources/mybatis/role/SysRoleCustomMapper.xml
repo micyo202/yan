@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yan.dao.mapper.role.SysRoleCustomMapper">
+	<resultMap id="roleNodeMap" type="com.yan.dao.model.role.RoleNode">
+		<id column="ROLE_ID" jdbcType="VARCHAR" property="id" />
+		<id column="ROLE_PID" jdbcType="VARCHAR" property="pid" />
+		<result column="ROLE_NAME" jdbcType="VARCHAR" property="name" />
+		<result column="ROLE_LEVEL" jdbcType="INTEGER" property="level" />
+		<result column="ROLE_PARENT" jdbcType="BIT" property="isParent" />
+		<result column="ROLE_OPEN" jdbcType="BIT" property="open" />
+		<result column="ROLE_VALID" jdbcType="BIT" property="valid" />
+	</resultMap>
+	<resultMap id="roleCheckedNodeMap" type="com.yan.dao.model.role.RoleNode">
+		<id column="ROLE_ID" jdbcType="VARCHAR" property="id" />
+		<id column="ROLE_PID" jdbcType="VARCHAR" property="pid" />
+		<result column="ROLE_NAME" jdbcType="VARCHAR" property="name" />
+		<result column="ROLE_LEVEL" jdbcType="INTEGER" property="level" />
+		<result column="ROLE_PARENT" jdbcType="BIT" property="isParent" />
+		<result column="ROLE_PARENT" jdbcType="BIT" property="nocheck" />
+		<result column="ROLE_OPEN" jdbcType="BIT" property="open" />
+		<result column="ROLE_CHECKED" jdbcType="BIT" property="checked" />
+		<result column="ROLE_VALID" jdbcType="BIT" property="valid" />
+	</resultMap>
+	
+	<select id="getRoleNode" resultMap="roleNodeMap" parameterType="java.lang.String">
+		SELECT ROLE_ID, ROLE_PID, ROLE_NAME, ROLE_LEVEL, IF(ROLE_TYPE='group', TRUE, FALSE) ROLE_PARENT, IF(ROLE_LEVEL=0, TRUE, IF(ROLE_LEVEL=1, TRUE, FALSE)) ROLE_OPEN, ROLE_VALID FROM SYS_ROLE WHERE ROLE_PID=#{0} ORDER BY ROLE_LEVEL, ROLE_INDEX
+	</select>
+	
+	<select id="getRoleCheckedNode" resultMap="roleCheckedNodeMap" parameterType="java.util.HashMap">
+		SELECT DISTINCT T.* FROM (
+			SELECT ROLE_ID, ROLE_PID, ROLE_NAME, ROLE_LEVEL, ROLE_INDEX, IF(ROLE_TYPE='group', TRUE, FALSE) ROLE_PARENT, IF(ROLE_LEVEL=0, TRUE, IF(ROLE_LEVEL=1, TRUE, FALSE)) ROLE_OPEN, TRUE ROLE_CHECKED, ROLE_VALID FROM SYS_ROLE WHERE ROLE_ID IN (SELECT ROLE_ID FROM USER_ROLE_REL WHERE USER_ID = #{userId} )
+			UNION
+			SELECT ROLE_ID, ROLE_PID, ROLE_NAME, ROLE_LEVEL, ROLE_INDEX, IF(ROLE_TYPE='group', TRUE, FALSE) ROLE_PARENT, IF(ROLE_LEVEL=0, TRUE, IF(ROLE_LEVEL=1, TRUE, FALSE)) ROLE_OPEN, FALSE ROLE_CHECKED, ROLE_VALID FROM SYS_ROLE WHERE ROLE_ID NOT IN (SELECT ROLE_ID FROM USER_ROLE_REL WHERE USER_ID = #{userId} )
+		) T
+		WHERE T.ROLE_PID = #{roleId}
+		ORDER BY T.ROLE_LEVEL, T.ROLE_INDEX
+	</select>
+	
+</mapper>

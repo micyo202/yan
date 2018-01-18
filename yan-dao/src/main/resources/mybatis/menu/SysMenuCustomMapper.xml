@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yan.dao.mapper.menu.SysMenuCustomMapper">
+	<resultMap id="menuNodeMap" type="com.yan.dao.model.menu.MenuNode">
+		<id column="MENU_ID" jdbcType="VARCHAR" property="id" />
+		<id column="MENU_PID" jdbcType="VARCHAR" property="pid" />
+		<result column="MENU_NAME" jdbcType="VARCHAR" property="name" />
+		<result column="MENU_URL" jdbcType="VARCHAR" property="href" />
+		<result column="MENU_LEVEL" jdbcType="INTEGER" property="level" />
+		<result column="MENU_PARENT" jdbcType="BIT" property="isParent" />
+		<result column="MENU_OPEN" jdbcType="BIT" property="open" />
+		<result column="MENU_VALID" jdbcType="BIT" property="valid" />
+	</resultMap>
+	
+	<resultMap id="menuCheckedNodeMap" type="com.yan.dao.model.menu.MenuNode">
+		<id column="MENU_ID" jdbcType="VARCHAR" property="id" />
+		<id column="MENU_PID" jdbcType="VARCHAR" property="pid" />
+		<result column="MENU_NAME" jdbcType="VARCHAR" property="name" />
+		<result column="MENU_URL" jdbcType="VARCHAR" property="href" />
+		<result column="MENU_LEVEL" jdbcType="INTEGER" property="level" />
+		<result column="MENU_PARENT" jdbcType="BIT" property="isParent" />
+		<result column="MENU_PARENT" jdbcType="BIT" property="nocheck" />
+		<result column="MENU_OPEN" jdbcType="BIT" property="open" />
+		<result column="MENU_CHECKED" jdbcType="BIT" property="checked" />
+		<result column="MENU_VALID" jdbcType="BIT" property="valid" />
+	</resultMap>
+	
+	<select id="getMenuNode" resultMap="menuNodeMap" parameterType="java.lang.String">
+		SELECT MENU_ID, MENU_PID, MENU_NAME, IF(MENU_URL IS NULL, '', MENU_URL) MENU_URL, MENU_LEVEL, IF(MENU_TYPE='folder', TRUE, FALSE) MENU_PARENT, IF(MENU_LEVEL=0, TRUE, IF(MENU_LEVEL=1, TRUE, FALSE)) MENU_OPEN, MENU_VALID FROM SYS_MENU WHERE MENU_PID=#{0} ORDER BY MENU_LEVEL, MENU_INDEX
+	</select>
+	
+	<select id="getMenuCheckedNode" resultMap="menuCheckedNodeMap" parameterType="java.util.HashMap">
+		<![CDATA[
+		SELECT T.* FROM (
+			SELECT MENU_ID, MENU_PID, MENU_NAME, IF(MENU_URL IS NULL, '', MENU_URL) MENU_URL, MENU_LEVEL, MENU_INDEX, IF(MENU_TYPE='folder', TRUE, FALSE) MENU_PARENT, IF(MENU_LEVEL=0, TRUE, IF(MENU_LEVEL=1, TRUE, FALSE)) MENU_OPEN, TRUE MENU_CHECKED, MENU_VALID FROM SYS_MENU WHERE MENU_ID IN (SELECT MENU_ID FROM ROLE_MENU_REL WHERE ROLE_ID = #{roleId})
+			UNION
+			SELECT MENU_ID, MENU_PID, MENU_NAME, IF(MENU_URL IS NULL, '', MENU_URL) MENU_URL, MENU_LEVEL, MENU_INDEX, IF(MENU_TYPE='folder', TRUE, FALSE) MENU_PARENT, IF(MENU_LEVEL=0, TRUE, IF(MENU_LEVEL=1, TRUE, FALSE)) MENU_OPEN, FALSE MENU_CHECKED, MENU_VALID FROM SYS_MENU WHERE MENU_ID NOT IN (SELECT MENU_ID FROM ROLE_MENU_REL WHERE ROLE_ID = #{roleId})
+		) T
+		WHERE T.MENU_PID = #{menuId}
+		ORDER BY T.MENU_LEVEL, T.MENU_INDEX
+		]]>
+	</select>
+	
+	<select id="updateMenuType" parameterType="java.util.HashMap">
+		UPDATE SYS_MENU SET MENU_TYPE=#{menuType} WHERE MENU_ID=#{menuId}		
+	</select>
+	
+</mapper>

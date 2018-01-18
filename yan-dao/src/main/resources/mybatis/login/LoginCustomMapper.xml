@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yan.dao.mapper.login.LoginCustomMapper">
+
+	<resultMap id="loginUserMap" type="com.yan.dao.model.login.LoginUser">
+		<id column="USER_ID" jdbcType="VARCHAR" property="userId" />
+		<id column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
+		<result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+		<result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
+		<result column="USER_ADDRESS" jdbcType="VARCHAR" property="userAddress" />
+		<result column="USER_EMAIL" jdbcType="VARCHAR" property="userEmail" />
+		<result column="USER_PHONE" jdbcType="VARCHAR" property="userPhone" />
+		<result column="USER_BIRTHDAY" jdbcType="DATE" property="userBirthday" />
+		<result column="USER_JOINDATE" jdbcType="TIMESTAMP" property="userJoindate" />
+		<result column="USER_PHOTO" jdbcType="VARCHAR" property="userPhoto" />
+		<result column="USER_TYPE" jdbcType="VARCHAR" property="userType" />
+		<result column="USER_VALID" jdbcType="BIT" property="userValid" />
+	</resultMap>
+
+	<select id="getLoginUser" resultMap="loginUserMap" parameterType="java.util.HashMap">
+		SELECT * FROM SYS_USER WHERE USER_CODE LIKE BINARY #{userCode} AND USER_PASSWORD LIKE BINARY #{userPassword}
+	</select>
+	
+	<select id="getUserRoles" resultType="java.util.Map" parameterType="java.lang.String">
+		SELECT T.ROLE_ID, T1.ROLE_NAME FROM USER_ROLE_REL T, SYS_ROLE T1 WHERE T.ROLE_ID = T1.ROLE_ID AND T.USER_ID = #{0}
+	</select>
+
+</mapper>

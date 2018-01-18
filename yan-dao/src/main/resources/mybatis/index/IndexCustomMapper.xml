@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yan.dao.mapper.index.IndexCustomMapper">
+	<resultMap id="menuMap" type="com.yan.dao.model.index.MenuModel">
+		<id column="MENU_ID" jdbcType="VARCHAR" property="id" />
+		<result column="MENU_NAME" jdbcType="VARCHAR" property="name" />
+		<result column="MENU_ICON" jdbcType="VARCHAR" property="icon" />
+		<result column="MENU_URL" jdbcType="VARCHAR" property="url" />
+	</resultMap>
+	
+	<select id="getMenu" resultMap="menuMap" parameterType="java.util.HashMap">
+		SELECT DISTINCT T.* FROM (
+			SELECT MENU_ID, MENU_NAME, IF(MENU_ICON IS NULL, 'zmdi zmdi-apps', MENU_ICON) MENU_ICON, IF(MENU_URL IS NULL, '', MENU_URL) MENU_URL, MENU_LEVEL, MENU_INDEX FROM SYS_MENU WHERE MENU_VALID=1 AND MENU_PID=#{menuId}
+		) T
+		WHERE T.MENU_ID IN (
+			<if test="roleId != null">
+				SELECT MENU_ID FROM ROLE_MENU_REL WHERE ROLE_ID = #{roleId}
+				UNION
+				SELECT MENU_PID FROM SYS_MENU WHERE MENU_ID IN (SELECT MENU_ID FROM ROLE_MENU_REL WHERE ROLE_ID like #{roleId})
+				UNION
+				SELECT MENU_PID FROM SYS_MENU WHERE MENU_ID IN (SELECT MENU_PID FROM SYS_MENU WHERE MENU_ID IN (SELECT MENU_ID FROM ROLE_MENU_REL WHERE ROLE_ID = #{roleId}))
+    		</if>
+    		<if test="roleId == null">
+    			SELECT MENU_ID FROM ROLE_MENU_REL WHERE ROLE_ID IN (SELECT ROLE_ID FROM USER_ROLE_REL WHERE USER_ID = #{userId})
+				UNION
+				SELECT MENU_PID FROM SYS_MENU WHERE MENU_ID IN (SELECT MENU_ID FROM ROLE_MENU_REL WHERE ROLE_ID IN (SELECT ROLE_ID FROM USER_ROLE_REL WHERE USER_ID = #{userId}))
+				UNION
+				SELECT MENU_PID FROM SYS_MENU WHERE MENU_ID IN (SELECT MENU_PID FROM SYS_MENU WHERE MENU_ID IN (SELECT MENU_ID FROM ROLE_MENU_REL WHERE ROLE_ID IN (SELECT ROLE_ID FROM USER_ROLE_REL WHERE USER_ID = #{userId})))
+    		</if>
+		)
+		ORDER BY T.MENU_LEVEL, T.MENU_INDEX
+	</select>
+	
+</mapper>
