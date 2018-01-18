@@ -25,7 +25,7 @@
 <generatorConfiguration>
 
     <!-- 引入 properties 配置文件 -->
-    <properties resource="properties/config.properties"/>
+    <properties resource="properties/mbg.properties"/>
 
     <!-- 数据库链接驱动包 -->
     <classPathEntry location="${mbg.jar}"/>
@@ -47,7 +47,7 @@
             <property name="searchString" value="Example$" />
             <property name="replaceString" value="Criteria" />
         </plugin>
-         -->
+        -->
 
         <!-- 为生成的Java模型类添加序列化接口 -->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
@@ -55,8 +55,8 @@
         <!-- 为生成的Java模型创建一个toString方法 -->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
 
-        <jdbcConnection driverClass="${extend.db.driverClassName}" connectionURL="${extend.db.url}"
-                        userId="${extend.db.username}" password="${extend.db.password}"/>
+        <jdbcConnection driverClass="${mbg.db.driverClassName}" connectionURL="${mbg.db.url}"
+                        userId="${mbg.db.username}" password="${mbg.db.password}"/>
 
         <!-- java类型处理器 用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl； 注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型； -->
         <javaTypeResolver>
