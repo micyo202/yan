@@ -21,7 +21,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.yan.core.persistence;
+package com.yan.service.persistence;
 
 import com.github.pagehelper.PageHelper;
 import com.yan.api.persistence.DelegateMapper;
