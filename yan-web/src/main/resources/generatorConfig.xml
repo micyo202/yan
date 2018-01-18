@@ -63,16 +63,16 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.yan.model.product" targetProject="${mbg.model.path}/java">
+        <javaModelGenerator targetPackage="com.yan.dao.model.product" targetProject="${mbg.path}/java">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mybatis.product" targetProject="${mbg.api.path}/resources">
+        <sqlMapGenerator targetPackage="mybatis.product" targetProject="${mbg.path}/resources">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator targetPackage="com.yan.api.mapper.product" targetProject="${mbg.api.path}/java"
+        <javaClientGenerator targetPackage="com.yan.dao.mapper.product" targetProject="${mbg.path}/java"
                              type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
