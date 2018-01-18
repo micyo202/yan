@@ -21,7 +21,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.yan.core.jms;
+package com.yan.service.jms;
 
 import com.yan.api.jms.MessageSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
