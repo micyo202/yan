@@ -19,6 +19,7 @@
         <module>yan-dao</module>
         <module>yan-test</module>
         <module>yan-web</module>
+        <module>yan-service</module>
     </modules>
 
     <properties>
