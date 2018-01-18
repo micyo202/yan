@@ -28,7 +28,7 @@ import com.yan.api.persistence.DelegateMapper;
 import com.yan.common.model.MsgModel;
 import com.yan.common.model.PageModel;
 import com.yan.common.support.BaseSupport;
-import com.yan.core.persistence.DelegateMapperImpl;
+import com.yan.service.persistence.DelegateMapperImpl;
 import com.yan.core.spring.DataSourceContextHolder;
 import org.apache.commons.io.FileUtils;
 import org.mybatis.spring.SqlSessionTemplate;

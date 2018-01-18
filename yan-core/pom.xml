@@ -21,6 +21,13 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
+        <!-- 添加 yan-service 依赖包 -->
+        <dependency>
+            <groupId>com.yan</groupId>
+            <artifactId>yan-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -24,7 +24,7 @@
 package com.yan.core.injector;
 
 import com.yan.core.annotation.MapperInject;
-import com.yan.core.persistence.DelegateMapperImpl;
+import com.yan.service.persistence.DelegateMapperImpl;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
