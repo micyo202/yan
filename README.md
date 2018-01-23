@@ -6,7 +6,7 @@
   <img src="https://github.com/micyo202/yan/raw/master/yan-web/src/main/webapp/resources/images/logo.png" alt="Yan" title="Yan">
 </p>
 
-[![Beta](https://img.shields.io/badge/beta-0.0.5-brightgreen.svg)](https://github.com/micyo202/yan)
+[![Beta](https://img.shields.io/badge/beta-0.1.0-brightgreen.svg)](https://github.com/micyo202/yan)
 [![Downloads](https://img.shields.io/badge/downloads-3.5MB-yellow.svg)](https://github.com/micyo202/yan/archive/master.zip)
 [![Since](https://img.shields.io/badge/since-2017-blue.svg)](https://github.com/micyo202/yan)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/micyo202/yan/blob/master/LICENSE)
@@ -21,7 +21,8 @@
 该项目是[yan-demo](https://github.com/micyo202/yan-demo)单节点项目的**升级版**，支持**分布式**，持续更新中，敬请期待...。
 
 ## 近期更新内容
-* **beta 0.0.5：前端添加ECharts，便于图形化展示**
+* **beta 0.1.0：模块优化，删除不必要的模块，优化代码（模块详情参考：三、项目结构）**
+* beta 0.0.5：前端添加ECharts，便于图形化展示
 * beta 0.0.4：添加JMS（ActiveMQ）消息服务（目前仅测试方法，暂无业务流转，后期逐渐完善细化）
 * beta 0.0.3：添加Solr搜索引擎服务（基本的全文检索功能，可根据实际需求情况进行二次开发，后期本人再逐渐完善）
 * beta 0.0.2：优化整体代码、添加更多注释，结构更清晰、代码更易懂
@@ -82,24 +83,22 @@ jquery-cookie | - | [https://github.com/carhartl/jquery-cookie](https://github.c
 ## 三、项目结构（Construction）
 ```lua
 yan -- 根目录
-├── yan-model -- 模型模块
+├── yan-api -- 接口模块（提供核心接口方法）
 |    ├── main -- 主模块路径
 |    |    ├── java -- java类路径
-|    |    |    ├── com.yan.model -- 模型类包
+|    |    |    ├── com.yan.api -- 核心接口包
+|    |    |    |    ├── jms -- 消息服务接口
+|    |    |    |    ├── persistence -- 持久化接口
+|    |    ├── resources -- 资源配置路径
 ├── yan-common -- 公共模块
 |    ├── main -- 主模块路径
 |    |    ├── java -- java类路径
 |    |    |    ├── com.yan.common -- 公共类包
-├── yan-api -- 接口模块（提供接口服务）
-|    ├── main -- 主模块路径
-|    |    ├── java -- java类路径
-|    |    |    ├── com.yan.api -- 接口类包
-|    |    |    |    ├── jms -- 消息服务接口
-|    |    |    |    ├── mapper -- 业务类的接口包（使用mbg生成的接口/自定义业务接口）
-|    |    |    |    ├── persistence -- 持久化接口包
+|    |    |    |    ├── constant -- 常亮定义类
+|    |    |    |    ├── model -- 通用模型
+|    |    |    |    ├── support -- 支持类
 |    |    ├── resources -- 资源配置路径
-|    |    |    ├── mybatis -- mapper映射文件（使用mbg生成的sql映射.xml文件）
-├── yan-core -- 核心模块
+├── yan-core -- 核心模块（提供核心方法）
 |    ├── main -- 主模块路径
 |    |    ├── java -- java类路径
 |    |    |    ├── com.yan.core -- 核心类包
@@ -107,11 +106,32 @@ yan -- 根目录
 |    |    |    |    ├── aspect -- 切面类
 |    |    |    |    ├── controller -- 控制器
 |    |    |    |    ├── injector -- 注入类
-|    |    |    |    ├── jms -- 消息服务接口实现类
 |    |    |    |    ├── listener -- 消息消费者监听器
-|    |    |    |    ├── persistence -- 持久化接口实现类
 |    |    |    |    ├── shiro -- 安全认证类
 |    |    |    |    ├── spring -- spring扩展类
+|    |    ├── resources -- 资源配置路径
+├── yan-dao -- 数据库访问模块（该模块主要通过 mbg 插件生成相应的模型及接口映射）
+|    ├── main -- 主模块路径
+|    |    ├── java -- java类路径
+|    |    |    ├── com.yan.dao -- dao层包
+|    |    |    |    ├── mapper -- 接口映射类
+|    |    |    |    ├── model -- 数据库模型类
+|    |    ├── resources -- 资源配置路径
+|    |    |    ├── mybatis -- sqlMap映射文件
+|    |    |    ├── properties -- 配置文件
+├── yan-service -- 服务模块（核心接口方法实现）
+|    ├── main -- 主模块路径
+|    |    ├── java -- java类路径
+|    |    |    ├── com.yan.service -- 服务包
+|    |    |    |    ├── jms -- 消息服务接口实现类
+|    |    |    |    ├── persistence -- 持久化接口实现类
+|    |    ├── resources -- 资源配置路径
+├── yan-test -- 测试模块（用于撰写测试代码，与项目整体无关）
+|    ├── main -- 主模块路径
+|    |    ├── java -- java类路径
+|    |    |    ├── com.yan.test -- 测试包
+|    |    ├── resources -- 资源配置路径
+|    ├── test -- 单元测试路径
 ├── yan-web -- web模块
 |    ├── main -- 主模块路径
 |    |    ├── java -- java类路径
