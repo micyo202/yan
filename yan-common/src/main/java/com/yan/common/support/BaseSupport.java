@@ -43,7 +43,7 @@ import java.util.*;
  * 版权：<br>
  * Copyright 2017 <a href="https://github.com/micyo202" target="_blank">https://github.com/micyo202</a>. All rights reserved.
  */
-public class BaseSupport {
+public abstract class BaseSupport {
 
     /**
      * 判断对象是否为null，或空<br>
