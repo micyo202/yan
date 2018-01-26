@@ -28,7 +28,6 @@ import com.yan.api.persistence.DelegateMapper;
 import com.yan.common.model.MsgModel;
 import com.yan.common.model.PageModel;
 import com.yan.common.support.BaseSupport;
-import com.yan.service.persistence.DelegateMapperImpl;
 import com.yan.core.spring.DataSourceContextHolder;
 import org.apache.commons.io.FileUtils;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -72,6 +71,9 @@ public abstract class ControllerSupport extends BaseSupport {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
+    @Autowired
+    private DelegateMapper delegateMapper;
+
     /**
      * 获取 mapper 对象<br>
      *
@@ -88,7 +90,7 @@ public abstract class ControllerSupport extends BaseSupport {
      * @return DelegateMapper 通用 mapper，查看自定义 sqlMap 的代理 mapper 对象
      */
     protected DelegateMapper getMapper() {
-        return new DelegateMapperImpl(this.sqlSessionTemplate);
+        return delegateMapper;
     }
 
     /**
