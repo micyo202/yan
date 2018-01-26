@@ -23,8 +23,8 @@
  */
 package com.yan.core.injector;
 
+import com.yan.api.persistence.DelegateMapper;
 import com.yan.core.annotation.MapperInject;
-import com.yan.service.persistence.DelegateMapperImpl;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +53,9 @@ public class MapperInjector implements BeanPostProcessor {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
+    @Autowired
+    private DelegateMapper delegateMapper;
+
     /**
      * 实例化、依赖注入完毕，在调用显示的初始化之前完成一些定制的初始化任务（前置处理器）<br>
      *
@@ -72,7 +75,7 @@ public class MapperInjector implements BeanPostProcessor {
                     MapperInject annotation = field.getAnnotation(MapperInject.class);
                     Class<?> clazz = annotation.value();
                     if ("DelegateMapper".equals(field.getType().getSimpleName())) {
-                        field.set(bean, new DelegateMapperImpl(sqlSessionTemplate));
+                        field.set(bean, delegateMapper);
                     } else {
                         field.set(bean, sqlSessionTemplate.getMapper(clazz));
                     }
