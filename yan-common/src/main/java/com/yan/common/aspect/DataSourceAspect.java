@@ -24,7 +24,6 @@
 package com.yan.common.aspect;
 
 import com.yan.common.annotation.DynamicDataSource;
-import com.yan.common.constant.DataSourceName;
 import com.yan.common.spring.DataSourceContextHolder;
 import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.aop.MethodBeforeAdvice;
@@ -53,8 +52,8 @@ public class DataSourceAspect implements MethodBeforeAdvice, AfterReturningAdvic
     public void before(Method method, Object[] args, Object target) throws Throwable {
         if (method.isAnnotationPresent(DynamicDataSource.class)) {
             DynamicDataSource dataSource = method.getAnnotation(DynamicDataSource.class);
-            if (dataSource.value() != DataSourceName.DEFAULT) {
-                DataSourceContextHolder.setDataSource(dataSource.value().getName());
+            if (dataSource.value() != "defaultDataSource") {
+                DataSourceContextHolder.setDataSource(dataSource.value());
             }
         }
     }
@@ -68,7 +67,7 @@ public class DataSourceAspect implements MethodBeforeAdvice, AfterReturningAdvic
     public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
         if (method.isAnnotationPresent(DynamicDataSource.class)) {
             DynamicDataSource dataSource = method.getAnnotation(DynamicDataSource.class);
-            if (dataSource.value() != DataSourceName.DEFAULT) {
+            if (dataSource.value() != "defaultDataSource") {
                 DataSourceContextHolder.clearDataSource();
             }
         }

@@ -23,8 +23,6 @@
  */
 package com.yan.common.annotation;
 
-import com.yan.common.constant.DataSourceName;
-
 import java.lang.annotation.*;
 
 /**
@@ -48,5 +46,5 @@ public @interface DynamicDataSource {
      *
      * @return DataSourceName
      */
-    public DataSourceName value() default DataSourceName.EXTEND;
+    String value() default "extendDataSource";
 }
