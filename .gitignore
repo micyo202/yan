@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+# Maven files
+target/
+
 # Log file
 *.log
 
@@ -17,6 +20,19 @@
 *.zip
 *.tar.gz
 *.rar
+
+# InetlliJ IDEA project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Eclipse project files
+.classpath
+.project
+
+# macOS files
+.DS_Store
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
