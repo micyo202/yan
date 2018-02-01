@@ -1,5 +1,7 @@
 package com.yan.common.service;
 
+import com.yan.common.constant.DataSourceName;
+import com.yan.common.model.PageModel;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -14,6 +16,14 @@ import java.util.List;
  * Copyright 2017 <a href="https://github.com/micyo202" target="_blank">https://github.com/micyo202</a>. All rights reserved.
  */
 public interface BaseService<Record, Example> {
+
+    /**
+     * 动态切换数据源
+     *
+     * @param dataSourceName
+     */
+    void dynamicDataSource(DataSourceName dataSourceName);
+
     /**
      * 根据条件查询记录数量
      *
@@ -78,7 +88,7 @@ public interface BaseService<Record, Example> {
      * @param pageSize 每页记录数
      * @return
      */
-    List<Record> selectByExampleWithBLOBsForStartPage(Example example, Integer pageNum, Integer pageSize);
+    PageModel<Record> selectByExampleWithBLOBsForStartPage(Example example, Integer pageNum, Integer pageSize);
 
     /**
      * 根据条件查询记录并按页码分页
@@ -88,7 +98,7 @@ public interface BaseService<Record, Example> {
      * @param pageSize 每页记录数
      * @return
      */
-    List<Record> selectByExampleForStartPage(Example example, Integer pageNum, Integer pageSize);
+    PageModel<Record> selectByExampleForStartPage(Example example, Integer pageNum, Integer pageSize);
 
     /**
      * 根据条件查询记录并按最后记录数分页，附带BLOB字段
@@ -98,7 +108,7 @@ public interface BaseService<Record, Example> {
      * @param limit   查询数量
      * @return
      */
-    List<Record> selectByExampleWithBLOBsForOffsetPage(Example example, Integer offset, Integer limit);
+    PageModel<Record> selectByExampleWithBLOBsForOffsetPage(Example example, Integer offset, Integer limit);
 
     /**
      * 根据条件查询记录并按最后记录数分页
@@ -108,7 +118,7 @@ public interface BaseService<Record, Example> {
      * @param limit   查询数量
      * @return
      */
-    List<Record> selectByExampleForOffsetPage(Example example, Integer offset, Integer limit);
+    PageModel<Record> selectByExampleForOffsetPage(Example example, Integer offset, Integer limit);
 
     /**
      * 根据条件查询第一条记录
