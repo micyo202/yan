@@ -18,13 +18,6 @@ import java.util.List;
 public interface BaseService<Record, Example> {
 
     /**
-     * 动态切换数据源
-     *
-     * @param dataSourceName
-     */
-    void dynamicDataSource(DataSourceName dataSourceName);
-
-    /**
      * 根据条件查询记录数量
      *
      * @param example
