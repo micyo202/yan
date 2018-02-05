@@ -24,13 +24,12 @@
 package com.yan.core.controller;
 
 import com.github.pagehelper.PageHelper;
-import com.yan.api.persistence.DelegateMapper;
+import com.yan.api.persistence.DelegateService;
 import com.yan.common.model.MsgModel;
 import com.yan.common.model.PageModel;
+import com.yan.common.spring.DataSourceContextHolder;
 import com.yan.common.support.BaseSupport;
-import com.yan.core.spring.DataSourceContextHolder;
 import org.apache.commons.io.FileUtils;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -65,32 +64,16 @@ import java.util.List;
  */
 public abstract class ControllerSupport extends BaseSupport {
 
-    /**
-     * 根据 spring 配置获取 mybatis 中的 sqlSessionTemplate 模板<br>
-     */
     @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;
-
-    @Autowired
-    private DelegateMapper delegateMapper;
-
-    /**
-     * 获取 mapper 对象<br>
-     *
-     * @param type 生成的 Mapper 接口对象类型
-     * @return T 泛型，传入参数对象的类型Mapper
-     */
-    protected <T> T getMapper(Class<T> type) {
-        return this.sqlSessionTemplate.getMapper(type);
-    }
+    private DelegateService delegateService;
 
     /**
      * 获取 delegateMapper 对象<br>
      *
      * @return DelegateMapper 通用 mapper，查看自定义 sqlMap 的代理 mapper 对象
      */
-    protected DelegateMapper getMapper() {
-        return delegateMapper;
+    protected DelegateService getService() {
+        return delegateService;
     }
 
     /**
