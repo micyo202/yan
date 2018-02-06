@@ -1,6 +1,5 @@
 package com.yan.common.service;
 
-import com.yan.common.constant.DataSourceName;
 import com.yan.common.model.PageModel;
 import org.apache.ibatis.annotations.Param;
 

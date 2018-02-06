@@ -1,10 +1,8 @@
 package com.yan.common.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.yan.common.constant.DataSourceName;
 import com.yan.common.model.PageModel;
 import com.yan.common.service.BaseService;
-import com.yan.common.spring.DataSourceContextHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +29,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public int countByExample(Example example) {
         int res = 0;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method countByExample = mapper.getClass().getDeclaredMethod("countByExample", example.getClass());
             Object result = countByExample.invoke(mapper, example);
             res = Integer.parseInt(String.valueOf(result));
@@ -42,7 +39,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return res;
     }
 
@@ -50,7 +46,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public int deleteByExample(Example example) {
         int res = 0;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method deleteByExample = mapper.getClass().getDeclaredMethod("deleteByExample", example.getClass());
             Object result = deleteByExample.invoke(mapper, example);
             res = Integer.parseInt(String.valueOf(result));
@@ -61,7 +56,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return res;
     }
 
@@ -69,7 +63,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public int deleteByPrimaryKey(String id) {
         int res = 0;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method deleteByPrimaryKey = mapper.getClass().getDeclaredMethod("deleteByPrimaryKey", id.getClass());
             Object result = deleteByPrimaryKey.invoke(mapper, id);
             return Integer.parseInt(String.valueOf(result));
@@ -80,7 +73,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return res;
     }
 
@@ -88,7 +80,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public int insert(Record record) {
         int res = 0;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method insert = mapper.getClass().getDeclaredMethod("insert", record.getClass());
             Object result = insert.invoke(mapper, record);
             res = Integer.parseInt(String.valueOf(result));
@@ -99,7 +90,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return res;
     }
 
@@ -107,7 +97,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public int insertSelective(Record record) {
         int res = 0;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method insertSelective = mapper.getClass().getDeclaredMethod("insertSelective", record.getClass());
             Object result = insertSelective.invoke(mapper, record);
             res = Integer.parseInt(String.valueOf(result));
@@ -118,7 +107,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return res;
     }
 
@@ -126,7 +114,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public List<Record> selectByExampleWithBLOBs(Example example) {
         List<Record> list = null;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method selectByExampleWithBLOBs = mapper.getClass().getDeclaredMethod("selectByExampleWithBLOBs", example.getClass());
             Object result = selectByExampleWithBLOBs.invoke(mapper, example);
             list = (List<Record>) result;
@@ -137,7 +124,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return list;
     }
 
@@ -145,7 +131,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public List<Record> selectByExample(Example example) {
         List<Record> list = null;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method selectByExample = mapper.getClass().getDeclaredMethod("selectByExample", example.getClass());
             Object result = selectByExample.invoke(mapper, example);
             list = (List<Record>) result;
@@ -156,7 +141,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return list;
     }
 
@@ -164,9 +148,8 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public PageModel<Record> selectByExampleWithBLOBsForStartPage(Example example, Integer pageNum, Integer pageSize) {
         PageModel<Record> pageModel = null;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method selectByExampleWithBLOBs = mapper.getClass().getDeclaredMethod("selectByExampleWithBLOBs", example.getClass());
-            PageHelper.startPage(pageNum, pageSize, false);
+            PageHelper.startPage(pageNum, pageSize);
             Object result = selectByExampleWithBLOBs.invoke(mapper, example);
             pageModel = new PageModel<>((List<Record>) result);
         } catch (IllegalAccessException e) {
@@ -176,7 +159,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return pageModel;
     }
 
@@ -184,9 +166,8 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public PageModel<Record> selectByExampleForStartPage(Example example, Integer pageNum, Integer pageSize) {
         PageModel<Record> pageModel = null;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method selectByExample = mapper.getClass().getDeclaredMethod("selectByExample", example.getClass());
-            PageHelper.startPage(pageNum, pageSize, false);
+            PageHelper.startPage(pageNum, pageSize);
             Object result = selectByExample.invoke(mapper, example);
             pageModel = new PageModel<>((List<Record>) result);
         } catch (IllegalAccessException e) {
@@ -196,7 +177,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return pageModel;
     }
 
@@ -204,9 +184,8 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public PageModel<Record> selectByExampleWithBLOBsForOffsetPage(Example example, Integer offset, Integer limit) {
         PageModel<Record> pageModel = null;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method selectByExampleWithBLOBs = mapper.getClass().getDeclaredMethod("selectByExampleWithBLOBs", example.getClass());
-            PageHelper.offsetPage(offset, limit, false);
+            PageHelper.offsetPage(offset, limit);
             Object result = selectByExampleWithBLOBs.invoke(mapper, example);
             pageModel = new PageModel<>((List<Record>) result);
         } catch (IllegalAccessException e) {
@@ -216,7 +195,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return pageModel;
     }
 
@@ -224,9 +202,8 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public PageModel<Record> selectByExampleForOffsetPage(Example example, Integer offset, Integer limit) {
         PageModel<Record> pageModel = null;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method selectByExample = mapper.getClass().getDeclaredMethod("selectByExample", example.getClass());
-            PageHelper.offsetPage(offset, limit, false);
+            PageHelper.offsetPage(offset, limit);
             Object result = selectByExample.invoke(mapper, example);
             pageModel = new PageModel<>((List<Record>) result);
         } catch (IllegalAccessException e) {
@@ -236,7 +213,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return pageModel;
     }
 
@@ -244,7 +220,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public Record selectFirstByExample(Example example) {
         Record res = null;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method selectByExample = mapper.getClass().getDeclaredMethod("selectByExample", example.getClass());
             List<Record> result = (List<Record>) selectByExample.invoke(mapper, example);
             if (null != result && result.size() > 0) {
@@ -257,7 +232,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return res;
     }
 
@@ -265,7 +239,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public Record selectFirstByExampleWithBLOBs(Example example) {
         Record res = null;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method selectByExampleWithBLOBs = mapper.getClass().getDeclaredMethod("selectByExampleWithBLOBs", example.getClass());
             List<Record> result = (List<Record>) selectByExampleWithBLOBs.invoke(mapper, example);
             if (null != result && result.size() > 0) {
@@ -278,7 +251,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return res;
     }
 
@@ -286,7 +258,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public Record selectByPrimaryKey(String id) {
         Record res = null;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method selectByPrimaryKey = mapper.getClass().getDeclaredMethod("selectByPrimaryKey", id.getClass());
             Object result = selectByPrimaryKey.invoke(mapper, id);
             res = (Record) result;
@@ -297,7 +268,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return res;
     }
 
@@ -305,7 +275,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public int updateByExampleSelective(@Param("record") Record record, @Param("example") Example example) {
         int res = 0;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method updateByExampleSelective = mapper.getClass().getDeclaredMethod("updateByExampleSelective", record.getClass(), example.getClass());
             Object result = updateByExampleSelective.invoke(mapper, record, example);
             res = Integer.parseInt(String.valueOf(result));
@@ -316,7 +285,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return res;
     }
 
@@ -324,7 +292,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public int updateByExampleWithBLOBs(@Param("record") Record record, @Param("example") Example example) {
         int res = 0;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method updateByExampleWithBLOBs = mapper.getClass().getDeclaredMethod("updateByExampleWithBLOBs", record.getClass(), example.getClass());
             Object result = updateByExampleWithBLOBs.invoke(mapper, record, example);
             res = Integer.parseInt(String.valueOf(result));
@@ -335,7 +302,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return res;
     }
 
@@ -343,7 +309,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public int updateByExample(@Param("record") Record record, @Param("example") Example example) {
         int res = 0;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method updateByExample = mapper.getClass().getDeclaredMethod("updateByExample", record.getClass(), example.getClass());
             Object result = updateByExample.invoke(mapper, record, example);
             res = Integer.parseInt(String.valueOf(result));
@@ -354,7 +319,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return res;
     }
 
@@ -362,7 +326,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public int updateByPrimaryKeySelective(Record record) {
         int res = 0;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method updateByPrimaryKeySelective = mapper.getClass().getDeclaredMethod("updateByPrimaryKeySelective", record.getClass());
             Object result = updateByPrimaryKeySelective.invoke(mapper, record);
             res = Integer.parseInt(String.valueOf(result));
@@ -373,7 +336,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return res;
     }
 
@@ -381,7 +343,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public int updateByPrimaryKeyWithBLOBs(Record record) {
         int res = 0;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method updateByPrimaryKeyWithBLOBs = mapper.getClass().getDeclaredMethod("updateByPrimaryKeyWithBLOBs", record.getClass());
             Object result = updateByPrimaryKeyWithBLOBs.invoke(mapper, record);
             res = Integer.parseInt(String.valueOf(result));
@@ -392,7 +353,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return res;
     }
 
@@ -400,7 +360,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public int updateByPrimaryKey(Record record) {
         int res = 0;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             Method updateByPrimaryKey = mapper.getClass().getDeclaredMethod("updateByPrimaryKey", record.getClass());
             Object result = updateByPrimaryKey.invoke(mapper, record);
             res = Integer.parseInt(String.valueOf(result));
@@ -411,7 +370,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return res;
     }
 
@@ -419,7 +377,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     public int deleteByPrimaryKeys(String ids) {
         int count = 0;
         try {
-            DataSourceContextHolder.setDataSource(DataSourceName.DEFAULT.getName());
             if (!StringUtils.isBlank(ids)) {
                 String[] idArray = ids.split("-");
                 for (String idStr : idArray) {
@@ -439,7 +396,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        DataSourceContextHolder.clearDataSource();
         return count;
     }
 }
