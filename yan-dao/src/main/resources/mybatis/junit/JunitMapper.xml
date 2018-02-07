@@ -10,4 +10,8 @@
 		SELECT * FROM SYS_USER
 	</select>
 
+	<select id="getTbProduct" resultType="java.util.HashMap">
+		SELECT * FROM TB_PRODUCT
+	</select>
+
 </mapper>
