@@ -6,27 +6,33 @@
   <img src="https://github.com/micyo202/yan/raw/master/yan-web/src/main/webapp/resources/images/logo.png" alt="Yan" title="Yan">
 </p>
 
-[![Beta](https://img.shields.io/badge/beta-0.1.0-brightgreen.svg)](https://github.com/micyo202/yan)
+[![Beta](https://img.shields.io/badge/beta-0.2.0-brightgreen.svg)](https://github.com/micyo202/yan)
 [![Downloads](https://img.shields.io/badge/downloads-3.5MB-yellow.svg)](https://github.com/micyo202/yan/archive/master.zip)
 [![Since](https://img.shields.io/badge/since-2017-blue.svg)](https://github.com/micyo202/yan)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/micyo202/yan/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/micyo202/yan.svg?style=social&label=Stars)](https://github.com/micyo202/yan)
 [![GitHub forks](https://img.shields.io/github/forks/micyo202/yan.svg?style=social&label=Fork)](https://github.com/micyo202/yan)
 
-本项目是一个基于 **SpringMVC+Spring+MyBatis（SSM）** 支持**分布式**的高效率便捷开发框架，使开发人员更专注于业务，达到面向业务开发。<br>
+本项目是一整套整合 **Dubbo+Zookeeper+SpringMVC+Spring+MyBatis** 支持**分布式**的高效率便捷开发**RPC**框架，使开发人员更专注于业务，达到面向业务开发。<br>
 项目使用 **Maven** 构建，便于项目管理，可支持 **Oracle、MySql** 等主流数据库。<br>
-项目模块化分层明确，便于后期维护等工作。<br>
+项目模块化分层明确，代码规范，便于后期维护等工作。<br>
 前端展示界面采用基于 **Boostrap** 实现的响应式布局，并集成了一系列的动画效果插件，整体界面简洁、美观大方并可优雅的与后台完成交互操作。<br>
 项目目标是为中小型企业打造全方位的J2EE企业级开发解决方案，提高工作效率。<br>
 该项目是[yan-demo](https://github.com/micyo202/yan-demo)单节点项目的**升级版**，支持**分布式**，持续更新中，敬请期待...。
 
 ## 近期更新内容
-* **beta 0.1.0：模块优化，删除不必要的模块，优化代码（模块详情参考：三、项目结构）**
+* **beta 1.0.0：项目整体改造，升级为RPC架构**
+* beta 0.1.0：模块优化，删除不必要的模块，优化代码（模块详情参考：三、项目结构）
 * beta 0.0.5：前端添加ECharts，便于图形化展示
 * beta 0.0.4：添加JMS（ActiveMQ）消息服务（目前仅测试方法，暂无业务流转，后期逐渐完善细化）
 * beta 0.0.3：添加Solr搜索引擎服务（基本的全文检索功能，可根据实际需求情况进行二次开发，后期本人再逐渐完善）
 * beta 0.0.2：优化整体代码、添加更多注释，结构更清晰、代码更易懂
 * beta 0.0.1：将原有[yan-demo](https://github.com/micyo202/yan-demo)项目重构，保留原有功能，模块拆分、优化项目结构
+
+## 项目所需工具及版本
+* zookeeper-3.4.11 下载地址：[http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.11/zookeeper-3.4.11.tar.gz](http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.11/zookeeper-3.4.11.tar.gz)
+* apache-activemq-5.15.2 下载地址：[http://www.apache.org/dyn/closer.cgi?filename=/activemq/5.15.2/apache-activemq-5.15.2-bin.zip&action=download](http://www.apache.org/dyn/closer.cgi?filename=/activemq/5.15.2/apache-activemq-5.15.2-bin.zip&action=download)
+* solr-7.1.0 下载地址：[https://mirrors.tuna.tsinghua.edu.cn/apache/lucene/solr/7.1.0/solr-7.1.0.zip](https://mirrors.tuna.tsinghua.edu.cn/apache/lucene/solr/7.1.0/solr-7.1.0.zip)
 
 ## 一、项目开发环境&工具（Environment&Tools）
 * MacOS Sierra / Windows 7
@@ -48,6 +54,7 @@ AspectJ | 1.8.13 | [http://www.eclipse.org/aspectj/](http://www.eclipse.org/aspe
 MyBatis | 3.4.5 | [http://www.mybatis.org/mybatis-3/zh/index.html](http://www.mybatis.org/mybatis-3/zh/index.html)
 MyBatis Generator | 1.3.5 | [http://www.mybatis.org/generator/index.html](http://www.mybatis.org/generator/index.html)
 PageHelper | 5.1.2 | [http://git.oschina.net/free/Mybatis_PageHelper](http://git.oschina.net/free/Mybatis_PageHelper)
+Dubbo | 2.6.0 | [http://dubbo.io](http://dubbo.io)
 Solr | 7.1.0 | [https://lucene.apache.org/solr/](https://lucene.apache.org/solr/)
 ActiveMQ | 5.15.2 | [http://activemq.apache.org](http://activemq.apache.org)
 Druid | 1.1.5 | [https://github.com/alibaba/druid](https://github.com/alibaba/druid)
@@ -56,6 +63,7 @@ Dom4j | 1.6.1 | [http://www.dom4j.org](http://www.dom4j.org)
 Ehcache | 2.6.11| [http://www.ehcache.org/](http://www.ehcache.org/)
 Logback | 1.2.3 | [https://logback.qos.ch](https://logback.qos.ch)
 Maven | 3.3.9 | [http://maven.apache.org/](http://maven.apache.org/)
+Zookeeper | 3.4.11 | [https://www.apache.org/dyn/closer.cgi/zookeeper/](https://www.apache.org/dyn/closer.cgi/zookeeper/)
 #### 2.前端技术（Web）
 名称 | 版本号 | 网址
 --- | --- | ---
@@ -119,6 +127,12 @@ yan -- 根目录
 |    |    ├── resources -- 资源配置路径
 |    |    |    ├── mybatis -- sqlMap映射文件
 |    |    |    ├── properties -- 配置文件
+├── yan-plugins -- 插件模块（自定义插件）
+|    ├── main -- 主模块路径
+|    |    ├── java -- java类路径
+|    |    |    ├── com.yan.plugins -- 插件包
+|    |    |    |    ├── mybatis.generator -- mbg插件类（包含注释插件、序列化插件）
+|    |    ├── resources -- 资源配置路径
 ├── yan-service -- 服务模块（核心接口方法实现）
 |    ├── main -- 主模块路径
 |    |    ├── java -- java类路径
@@ -126,12 +140,6 @@ yan -- 根目录
 |    |    |    |    ├── jms -- 消息服务接口实现类
 |    |    |    |    ├── persistence -- 持久化接口实现类
 |    |    ├── resources -- 资源配置路径
-├── yan-test -- 测试模块（用于撰写测试代码，与项目整体无关）
-|    ├── main -- 主模块路径
-|    |    ├── java -- java类路径
-|    |    |    ├── com.yan.test -- 测试包
-|    |    ├── resources -- 资源配置路径
-|    ├── test -- 单元测试路径
 ├── yan-web -- web模块
 |    ├── main -- 主模块路径
 |    |    ├── java -- java类路径
