@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="${dubbo.application.name}"/>
+
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry address="${dubbo.registry.address}"/>
+
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="${dubbo.protocol.port}"/>
+
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="com.yan.api.demo.DemoService" ref="demoService" timeout="10000"/>
+
+    <dubbo:service interface="com.yan.api.persistence.DelegateService" ref="delegateService" timeout="10000"/>
+    <dubbo:service interface="com.yan.api.jms.JmsSenderService" ref="jmsSenderService" timeout="10000"/>
+
+    <dubbo:service interface="com.yan.api.logging.LoggingEventPropertyService" ref="loggingEventPropertyService" timeout="10000"/>
+    <dubbo:service interface="com.yan.api.logging.LoggingEventService" ref="loggingEventService" timeout="10000"/>
+    <dubbo:service interface="com.yan.api.logging.LoggingEventExceptionService" ref="loggingEventExceptionService" timeout="10000"/>
+
+    <dubbo:service interface="com.yan.api.user.SysUserService" ref="sysUserService" timeout="10000"/>
+    <dubbo:service interface="com.yan.api.user.UserRoleRelService" ref="userRoleRelService" timeout="10000"/>
+
+    <dubbo:service interface="com.yan.api.role.SysRoleService" ref="sysRoleService" timeout="10000"/>
+    <dubbo:service interface="com.yan.api.role.RoleMenuRelService" ref="roleMenuRelService" timeout="10000"/>
+
+    <dubbo:service interface="com.yan.api.menu.SysMenuService" ref="sysMenuService" timeout="10000"/>
+
+    <dubbo:service interface="com.yan.api.product.TbProductService" ref="tbProductService" timeout="10000"/>
+
+    <!-- 具体的实现bean（废弃，改用注解方式注入） -->
+    <!--
+    <bean id="demoService" class="com.yan.service.demo.DemoServiceImpl"/>
+    -->
+
+</beans>
