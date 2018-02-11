@@ -12,6 +12,17 @@
     <artifactId>yan-dao</artifactId>
     <packaging>jar</packaging>
 
+    <dependencies>
+
+        <!-- 添加 mybatis 依赖包 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.4.5</version>
+        </dependency>
+
+    </dependencies>
+
     <build>
         <plugins>
 
