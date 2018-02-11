@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+    <!-- 配置 druid 多个数据源（默认数据源） -->
+    <bean id="defaultDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <!-- 基本属性 url、user、password、driverClass -->
+        <property name="username" value="${default.datasource.username}"/>
+        <property name="password" value="${default.datasource.password}"/>
+        <property name="driverClassName" value="${default.datasource.driverClassName}"/>
+        <property name="url" value="${default.datasource.url}"/>
+
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="${datasource.initialSize}"/>
+        <property name="minIdle" value="${datasource.minIdle}"/>
+        <property name="maxActive" value="${datasource.maxActive}"/>
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="${datasource.maxWait}"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${datasource.timeBetweenEvictionRunsMillis}"/>
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${datasource.minEvictableIdleTimeMillis}"/>
+
+        <property name="validationQuery" value="${datasource.validationQuery}"/>
+        <property name="testWhileIdle" value="${datasource.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${datasource.testOnBorrow}"/>
+        <property name="testOnReturn" value="${datasource.testOnReturn}"/>
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="${datasource.poolPreparedStatements}"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+                  value="${datasource.maxPoolPreparedStatementPerConnectionSize}"/>
+
+        <!-- 监控功能 -->
+        <property name="filters" value="${datasource.filters}"/>
+    </bean>
+
+    <!-- 配置 druid 多个数据源（扩展数据源） -->
+    <bean id="extendDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <property name="username" value="${extend.datasource.username}"/>
+        <property name="password" value="${extend.datasource.password}"/>
+        <property name="driverClassName" value="${extend.datasource.driverClassName}"/>
+        <property name="url" value="${extend.datasource.url}"/>
+
+        <property name="initialSize" value="${datasource.initialSize}"/>
+        <property name="minIdle" value="${datasource.minIdle}"/>
+        <property name="maxActive" value="${datasource.maxActive}"/>
+
+        <property name="maxWait" value="${datasource.maxWait}"/>
+
+        <property name="timeBetweenEvictionRunsMillis" value="${datasource.timeBetweenEvictionRunsMillis}"/>
+
+        <property name="minEvictableIdleTimeMillis" value="${datasource.minEvictableIdleTimeMillis}"/>
+
+        <property name="validationQuery" value="${datasource.validationQuery}"/>
+        <property name="testWhileIdle" value="${datasource.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${datasource.testOnBorrow}"/>
+        <property name="testOnReturn" value="${datasource.testOnReturn}"/>
+
+        <property name="poolPreparedStatements" value="${datasource.poolPreparedStatements}"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+                  value="${datasource.maxPoolPreparedStatementPerConnectionSize}"/>
+
+        <property name="filters" value="${datasource.filters}"/>
+    </bean>
+
+    <!-- 动态数据源（多个数据源） -->
+    <bean id="dataSource" class="com.yan.common.spring.DataSourceContextHolder">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <entry key="defaultDataSource" value-ref="defaultDataSource"/>
+                <entry key="extendDataSource" value-ref="extendDataSource"/>
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="defaultDataSource"/>
+    </bean>
+
+    <!-- 为 Mybatis 创建 SqlSessionFactory，同时指定数据源 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations">
+            <list>
+                <!-- <value>classpath*:com/yan/**/*Mapper.xml</value> -->
+                <value>classpath*:mybatis/**/*Mapper.xml</value>
+            </list>
+        </property>
+        <!-- 配置 mybatis 分页插件 -->
+        <property name="plugins">
+            <bean class="com.github.pagehelper.PageInterceptor">
+                <property name="properties">
+                    <value>
+                        helperDialect=mysql
+                        offsetAsPageNum=true
+                        rowBoundsWithCount=true
+                        pageSizeZero=true
+                        reasonable=false
+                    </value>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- 配置 Mapper 接口所在包名，Spring 会自动查找其下的 Mapper -->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.yan..*.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!-- 配置 sqlSessionTemplate 持久化模板 -->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"/>
+    </bean>
+
+    <!-- Yan 配置切换数据源 aop 切面 -->
+    <bean id="dataSourceExchange" class="com.yan.common.aspect.DataSourceAspect"/>
+
+    <!-- 配置事物管理器 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 配置事物传播行为 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 配置事物切入点 -->
+    <aop:config>
+        <aop:pointcut expression="execution(* com.yan.service..*.*(..))" id="dataSourcePointCut"/>
+        <aop:pointcut expression="execution(* com.yan.service..*.*(..))" id="pointCut"/>
+        <aop:advisor advice-ref="dataSourceExchange" pointcut-ref="dataSourcePointCut" order="1"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pointCut" order="2"/>
+    </aop:config>
+
+    <!-- 开始声明式事务（事物注解） -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>
