@@ -109,7 +109,7 @@ public class LogAspect {
         String methodName = joinPoint.getSignature().getName();
         List<Object> parameters = Arrays.asList(joinPoint.getArgs());
         if (parameters.size() > 0) {
-            log.info("Yan -> [LogAspect 返回通知] 执行类方法 : " + className + "." + methodName + "(" + parameters + "), 返回结果 : " + result);
+
         } else {
             log.info("Yan -> [LogAspect 返回通知] 执行类方法 : " + className + "." + methodName + "(), 返回结果 : " + result);
         }
