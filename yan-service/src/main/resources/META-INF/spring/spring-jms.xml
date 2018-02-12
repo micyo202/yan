@@ -49,7 +49,7 @@
         <!-- 同上，同理 -->
         <!-- <constructor-arg ref="amqConnectionFactory" /> -->
         <!-- Session缓存数量 -->
-        <property name="sessionCacheSize" value="${jms.sessionCacheSize}"/>
+        <property name="sessionCacheSize" value="100"/>
     </bean>
 
 
