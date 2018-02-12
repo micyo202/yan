@@ -23,11 +23,9 @@
  */
 package com.yan.core.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.yan.api.persistence.DelegateService;
 import com.yan.common.model.MsgModel;
 import com.yan.common.model.PageModel;
-import com.yan.common.spring.DataSourceContextHolder;
 import com.yan.common.support.BaseSupport;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,32 +72,6 @@ public abstract class ControllerSupport extends BaseSupport {
      */
     protected DelegateService getService() {
         return delegateService;
-    }
-
-    /**
-     * 动态切换数据源方法，设置数据源名称<br>
-     *
-     * @param dataSource 数据源名称（必须是spring配置中包含的名称）
-     */
-    protected void setDataSource(String dataSource) {
-        DataSourceContextHolder.setDataSource(dataSource);
-    }
-
-    /**
-     * 清除数据源，在切换完数据源后，进行清理，将数据源还原为默认数据源<br>
-     */
-    protected void clearDataSource() {
-        DataSourceContextHolder.clearDataSource();
-    }
-
-    /**
-     * 分页查询范围，参数均由 bootstrapTable 分页插件进行传入，无需人工控制，只需调用方法即可<br>
-     *
-     * @param offset 起始数量
-     * @param limit  限制条数
-     */
-    protected void offsetPage(int offset, int limit) {
-        PageHelper.offsetPage(offset, limit);
     }
 
     /**
