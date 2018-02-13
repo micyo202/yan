@@ -1,16 +1,17 @@
 package com.yan.web.controller.index;
 
-import com.yan.api.persistence.DelegateMapper;
+import com.yan.api.persistence.DelegateService;
 import com.yan.core.annotation.LogInject;
-import com.yan.core.annotation.MapperInject;
 import com.yan.core.controller.BaseController;
 import com.yan.dao.model.index.MenuModel;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,8 +45,8 @@ public class IndexController extends BaseController {
     /**
      * 生成delegateMapper<br>
      */
-    @MapperInject
-    private DelegateMapper delegateMapper;
+    @Autowired
+    private DelegateService delegateService;
 
     /**
      * 跳转到登录页<br>
@@ -112,7 +113,7 @@ public class IndexController extends BaseController {
             paramMap.put("userId", this.getSessionUser().getUserId());
 
             List<MenuModel> list = new ArrayList<>();
-            List<MenuModel> rootList = delegateMapper.selectList("com.yan.dao.mapper.index.IndexCustomMapper.getMenu", paramMap);
+            List<MenuModel> rootList = delegateService.selectList("com.yan.dao.mapper.index.IndexCustomMapper.getMenu", paramMap);
             for (MenuModel menuModel : rootList) {
                 menuModel.setChildren(getMenu(menuModel.getId(), roleId));
                 list.add(menuModel);
@@ -135,7 +136,7 @@ public class IndexController extends BaseController {
         paramMap.put("userId", this.getSessionUser().getUserId());
 
         List<MenuModel> list = new ArrayList<>();
-        List<MenuModel> menuList = delegateMapper.selectList("com.yan.dao.mapper.index.IndexCustomMapper.getMenu", paramMap);
+        List<MenuModel> menuList = delegateService.selectList("com.yan.dao.mapper.index.IndexCustomMapper.getMenu", paramMap);
         for (MenuModel menuModel : menuList) {
             if (!this.isNull(menuModel.getId())) {
                 menuModel.setChildren(getMenu(menuModel.getId(), roleId));
