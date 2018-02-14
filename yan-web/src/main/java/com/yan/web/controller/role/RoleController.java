@@ -1,12 +1,12 @@
 package com.yan.web.controller.role;
 
-import com.yan.dao.mapper.role.RoleMenuRelMapper;
-import com.yan.dao.mapper.role.SysRoleMapper;
-import com.yan.api.persistence.DelegateMapper;
+import com.yan.api.persistence.DelegateService;
+import com.yan.api.role.RoleMenuRelService;
+import com.yan.api.role.SysRoleService;
 import com.yan.common.model.MsgModel;
-import com.yan.core.annotation.MapperInject;
 import com.yan.core.controller.BaseController;
 import com.yan.dao.model.role.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -34,11 +34,14 @@ public class RoleController extends BaseController {
 
     private static final String NAMESPACE = "com.yan.dao.mapper.role.SysRoleCustomMapper";
 
-    @MapperInject
-    private DelegateMapper delegateMapper;
+    @Autowired
+    private DelegateService delegateService;
 
-    @MapperInject(SysRoleMapper.class)
-    private SysRoleMapper mapper;
+    @Autowired
+    private SysRoleService sysRoleService;
+
+    @Autowired
+    RoleMenuRelService roleMenuRelService;
 
     @RequestMapping("/manage")
     public String manage() {
@@ -60,7 +63,7 @@ public class RoleController extends BaseController {
         }
 
         List<RoleNode> nodeList = new ArrayList<>();
-        List<RoleNode> rootList = delegateMapper.selectList(NAMESPACE + ".getRoleNode", id);
+        List<RoleNode> rootList = delegateService.selectList(NAMESPACE + ".getRoleNode", id);
         for (RoleNode roleNode : rootList) {
             roleNode.setChildren(getRoleNode(roleNode.getId()));
             nodeList.add(roleNode);
@@ -88,7 +91,7 @@ public class RoleController extends BaseController {
         paramMap.put("roleId", id);
 
         List<RoleNode> nodeList = new ArrayList<>();
-        List<RoleNode> rootList = delegateMapper.selectList(NAMESPACE + ".getRoleCheckedNode", paramMap);
+        List<RoleNode> rootList = delegateService.selectList(NAMESPACE + ".getRoleCheckedNode", paramMap);
         for (RoleNode roleNode : rootList) {
             roleNode.setChildren(getRoleCheckedNode(userId, roleNode.getId()));
             nodeList.add(roleNode);
@@ -105,7 +108,7 @@ public class RoleController extends BaseController {
      */
     @RequestMapping("/{roleId}/add")
     public String add(@PathVariable String roleId, Model model) {
-        SysRole pRole = mapper.selectByPrimaryKey(roleId);
+        SysRole pRole = sysRoleService.selectByPrimaryKey(roleId);
         SysRole role = new SysRole();
         role.setRolePid(pRole.getRoleId());
         role.setRoleLevel(pRole.getRoleLevel() + 1);
@@ -124,7 +127,7 @@ public class RoleController extends BaseController {
      */
     @RequestMapping("/{roleId}/edit")
     public String edit(@PathVariable String roleId, Model model) {
-        SysRole role = mapper.selectByPrimaryKey(roleId);
+        SysRole role = sysRoleService.selectByPrimaryKey(roleId);
         model.addAttribute("role", role);
         return "common/role/addOrEdit";
     }
@@ -142,10 +145,10 @@ public class RoleController extends BaseController {
         if (this.isNull(role.getRoleId())) {
             // 添加操作
             role.setRoleId(this.getUUID());
-            mapper.insertSelective(role);
+            sysRoleService.insertSelective(role);
         } else {
             // 修改操作
-            mapper.updateByPrimaryKeySelective(role);
+            sysRoleService.updateByPrimaryKeySelective(role);
             status = "1";
         }
         return this.resultMsg(status, "保存成功！");
@@ -164,8 +167,8 @@ public class RoleController extends BaseController {
     public MsgModel delete(String roleId, String rolePid) {
         SysRoleExample example = new SysRoleExample();
         example.createCriteria().andRolePidEqualTo(roleId);
-        mapper.deleteByExample(example);// 删除子级数据
-        mapper.deleteByPrimaryKey(roleId);// 删除当前数据
+        sysRoleService.deleteByExample(example);// 删除子级数据
+        sysRoleService.deleteByPrimaryKey(roleId);// 删除当前数据
         return this.resultMsg("0", "删除成功！");
     }
 
@@ -181,11 +184,10 @@ public class RoleController extends BaseController {
     @Transactional
     public MsgModel menuSave(String roleId, String menuStr) {
         List<String> menuIds = Arrays.asList(menuStr.split(","));
-        RoleMenuRelMapper mapper = this.getMapper(RoleMenuRelMapper.class);
         // 先清除历史数据
         RoleMenuRelExample example = new RoleMenuRelExample();
         example.createCriteria().andRoleIdEqualTo(roleId);
-        mapper.deleteByExample(example);
+        roleMenuRelService.deleteByExample(example);
 
         // 添加
         for (String menuId : menuIds) {
@@ -194,7 +196,7 @@ public class RoleController extends BaseController {
                 roleMenuRel.setRelId(this.getUUID());
                 roleMenuRel.setRoleId(roleId);
                 roleMenuRel.setMenuId(menuId);
-                mapper.insertSelective(roleMenuRel);
+                roleMenuRelService.insertSelective(roleMenuRel);
             }
         }
         return this.resultMsg("资源保存成功！");
@@ -207,7 +209,7 @@ public class RoleController extends BaseController {
      * @return List<RoleNode> 角色节点列表集合
      */
     private List<RoleNode> getRoleNode(String pid) {
-        List<RoleNode> roleList = delegateMapper.selectList(NAMESPACE + ".getRoleNode", pid);
+        List<RoleNode> roleList = delegateService.selectList(NAMESPACE + ".getRoleNode", pid);
         return roleList;
     }
 
@@ -224,7 +226,7 @@ public class RoleController extends BaseController {
         paramMap.put("userId", userId);
         paramMap.put("roleId", pid);
 
-        List<RoleNode> roleList = delegateMapper.selectList(NAMESPACE + ".getRoleCheckedNode", paramMap);
+        List<RoleNode> roleList = delegateService.selectList(NAMESPACE + ".getRoleCheckedNode", paramMap);
         return roleList;
     }
 
