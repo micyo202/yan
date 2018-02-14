@@ -1,15 +1,15 @@
 package com.yan.web.controller.logging;
 
 import com.github.pagehelper.PageHelper;
-import com.yan.dao.mapper.logging.LoggingEventExceptionMapper;
-import com.yan.dao.mapper.logging.LoggingEventMapper;
-import com.yan.dao.mapper.logging.LoggingEventPropertyMapper;
+import com.yan.api.logging.LoggingEventExceptionService;
+import com.yan.api.logging.LoggingEventPropertyService;
+import com.yan.api.logging.LoggingEventService;
 import com.yan.common.model.MsgModel;
 import com.yan.common.model.PageModel;
-import com.yan.core.annotation.MapperInject;
 import com.yan.core.controller.BaseController;
 import com.yan.dao.model.logging.LoggingEvent;
 import com.yan.dao.model.logging.LoggingEventExample;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,14 +33,14 @@ import java.util.List;
 @RequestMapping("/common/logging")
 public class LoggingController extends BaseController {
 
-    @MapperInject(LoggingEventMapper.class)
-    private LoggingEventMapper eventMapper;
+    @Autowired
+    private LoggingEventService loggingEventService;
 
-    @MapperInject(LoggingEventExceptionMapper.class)
-    private LoggingEventExceptionMapper exceptionMapper;
+    @Autowired
+    private LoggingEventExceptionService loggingEventExceptionService;
 
-    @MapperInject(LoggingEventPropertyMapper.class)
-    private LoggingEventPropertyMapper propertyMapper;
+    @Autowired
+    private LoggingEventPropertyService loggingEventPropertyService;
 
     /**
      * 日志查看初始化<br>
@@ -69,7 +69,7 @@ public class LoggingController extends BaseController {
         PageHelper.offsetPage(offset, limit);
         LoggingEventExample example = new LoggingEventExample();
         example.setOrderByClause("timestmp desc");
-        List<LoggingEvent> list = eventMapper.selectByExampleWithBLOBs(example);
+        List<LoggingEvent> list = loggingEventService.selectByExampleWithBLOBs(example);
         return new PageModel<>(list);
 
     }
@@ -83,9 +83,9 @@ public class LoggingController extends BaseController {
     @ResponseBody
     @Transactional
     public MsgModel clear() {
-        propertyMapper.deleteByExample(null);
-        exceptionMapper.deleteByExample(null);
-        eventMapper.deleteByExample(null);
+        loggingEventPropertyService.deleteByExample(null);
+        loggingEventExceptionService.deleteByExample(null);
+        loggingEventService.deleteByExample(null);
         return this.resultMsg("删除成功！");
     }
 
