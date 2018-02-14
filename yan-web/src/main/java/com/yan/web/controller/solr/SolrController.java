@@ -3,6 +3,7 @@ package com.yan.web.controller.solr;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -34,23 +35,44 @@ public class SolrController {
 
     @RequestMapping("/test")
     @ResponseBody
-    public List test() {
+    public String test() throws Exception {
         List list = new ArrayList();
         SolrQuery query = new SolrQuery();
         query.setQuery("* : *");
-        try {
-            QueryResponse queryResponse = httpSolrClient.query(query);
-            SolrDocumentList docs = queryResponse.getResults();
-            Iterator it = docs.iterator();
-            while (it.hasNext()) {
-                list.add(it.next());
+        // 设置分页信息
+        query.setStart(0);
+        query.setRows(10);
+        // 设置排序
+        query.setSort("date", SolrQuery.ORDER.desc);
+        // 显示Field的集合域
+        query.setFields("id,name");
+        // 默认域
+        query.set("df", "name");
+        // 设置高亮
+        query.setHighlight(true);
+        query.addHighlightField("name");
+        query.setHighlightSimplePre("<em>");
+        query.setHighlightSimplePost("</em>");
+        // 执行查询
+        QueryResponse queryResponse = httpSolrClient.query(query);
+        // 获取docs文档
+        SolrDocumentList docs = queryResponse.getResults();
+        System.out.println("共查询到" + docs.getNumFound() + "条记录");
+        // 循环输出查询到的结果数据
+        //docs.forEach(doc -> System.out.println(doc));
+
+        // 获取高亮显示
+        Map<String, Map<String, List<String>>> highlighting = queryResponse.getHighlighting();
+        for (SolrDocument doc : docs) {
+            List<String> hightDocs = highlighting.get(doc.get("id")).get("name");
+            if (null != hightDocs) {
+                System.out.println("高亮显示的内容为：" + hightDocs.get(0));
+            } else {
+                System.out.println(doc.get("name"));
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
         }
-        System.out.println(list.toString());
-        return list;
+
+        return "SUCCESS";
     }
 
 }
