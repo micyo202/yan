@@ -1,13 +1,13 @@
 package com.yan.web.controller.menu;
 
-import com.yan.dao.mapper.menu.SysMenuMapper;
-import com.yan.api.persistence.DelegateMapper;
+import com.yan.api.menu.SysMenuService;
+import com.yan.api.persistence.DelegateService;
 import com.yan.common.model.MsgModel;
-import com.yan.core.annotation.MapperInject;
 import com.yan.core.controller.BaseController;
 import com.yan.dao.model.menu.MenuNode;
 import com.yan.dao.model.menu.SysMenu;
 import com.yan.dao.model.menu.SysMenuExample;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -41,14 +41,14 @@ public class MenuController extends BaseController {
     /**
      * 使用注解获取 delegateMapper 对象
      */
-    @MapperInject
-    private DelegateMapper delegateMapper;
+    @Autowired
+    private DelegateService delegateService;
 
     /**
      * 使用注解获取指定对象的 mapper 映射
      */
-    @MapperInject(SysMenuMapper.class)
-    private SysMenuMapper mapper;
+    @Autowired
+    private SysMenuService sysMenuService;
 
     /**
      * 菜单管理初始化<br>
@@ -73,7 +73,7 @@ public class MenuController extends BaseController {
             id = "00000000000000000000000000000000";
         }
         List<MenuNode> nodeList = new ArrayList<>();
-        List<MenuNode> rootList = delegateMapper.selectList(NAMESPACE + ".getMenuNode", id);
+        List<MenuNode> rootList = delegateService.selectList(NAMESPACE + ".getMenuNode", id);
         for (MenuNode menuNode : rootList) {
             menuNode.setChildren(getMenuNode(menuNode.getId()));
             nodeList.add(menuNode);
@@ -101,7 +101,7 @@ public class MenuController extends BaseController {
         paramMap.put("menuId", id);
 
         List<MenuNode> nodeList = new ArrayList<>();
-        List<MenuNode> rootList = delegateMapper.selectList(NAMESPACE + ".getMenuCheckedNode", paramMap);
+        List<MenuNode> rootList = delegateService.selectList(NAMESPACE + ".getMenuCheckedNode", paramMap);
         for (MenuNode menuNode : rootList) {
             menuNode.setChildren(getMenuCheckedNode(roleId, menuNode.getId()));
             nodeList.add(menuNode);
@@ -118,7 +118,7 @@ public class MenuController extends BaseController {
      */
     @RequestMapping("/{menuId}/add")
     public String add(@PathVariable String menuId, Model model) {
-        SysMenu pMenu = mapper.selectByPrimaryKey(menuId);
+        SysMenu pMenu = sysMenuService.selectByPrimaryKey(menuId);
         SysMenu menu = new SysMenu();
         menu.setMenuPid(pMenu.getMenuId());
         menu.setMenuLevel(pMenu.getMenuLevel() + 1);
@@ -136,7 +136,7 @@ public class MenuController extends BaseController {
      */
     @RequestMapping("/{menuId}/edit")
     public String edit(@PathVariable String menuId, Model model) {
-        SysMenu menu = mapper.selectByPrimaryKey(menuId);
+        SysMenu menu = sysMenuService.selectByPrimaryKey(menuId);
         model.addAttribute("menu", menu);
         return "common/menu/addOrEdit";
     }
@@ -156,19 +156,19 @@ public class MenuController extends BaseController {
             // 添加操作
             menu.setMenuId(this.getUUID());
             menu.setMenuType("menu");
-            mapper.insertSelective(menu);
-            SysMenu pMenu = mapper.selectByPrimaryKey(menu.getMenuPid());
+            sysMenuService.insertSelective(menu);
+            SysMenu pMenu = sysMenuService.selectByPrimaryKey(menu.getMenuPid());
             if ("menu".equals(pMenu.getMenuType())) {
                 // 修改父节点为 folder
                 Map<String, Object> map = new HashMap<>();
                 map.put("menuType", "folder");
                 map.put("menuId", menu.getMenuPid());
-                delegateMapper.update(NAMESPACE + ".updateMenuType", map);
+                delegateService.update(NAMESPACE + ".updateMenuType", map);
                 status = "1";
             }
         } else {
             // 修改操作
-            mapper.updateByPrimaryKeySelective(menu);
+            sysMenuService.updateByPrimaryKeySelective(menu);
             status = "1";
         }
         return this.resultMsg(status, "保存成功！");
@@ -188,18 +188,18 @@ public class MenuController extends BaseController {
         String status = "0";
         SysMenuExample example = new SysMenuExample();
         example.createCriteria().andMenuPidEqualTo(menuId);
-        mapper.deleteByExample(example);// 删除子级数据
-        mapper.deleteByPrimaryKey(menuId);// 删除当前数据
+        sysMenuService.deleteByExample(example);// 删除子级数据
+        sysMenuService.deleteByPrimaryKey(menuId);// 删除当前数据
         // 如果父节点下没有子菜单，则修父节点改类型为 menu
         SysMenuExample pExample = new SysMenuExample();
         pExample.createCriteria().andMenuPidEqualTo(menuPid);
-        List<SysMenu> list = mapper.selectByExample(pExample);
+        List<SysMenu> list = sysMenuService.selectByExample(pExample);
         if (this.isNull(list)) {
             // 修改父节点为 menu
             Map<String, Object> map = new HashMap<>();
             map.put("menuType", "menu");
             map.put("menuId", menuPid);
-            delegateMapper.update(NAMESPACE + ".updateMenuType", map);
+            delegateService.update(NAMESPACE + ".updateMenuType", map);
             status = "1";
         }
         return this.resultMsg(status, "删除成功！");
@@ -212,7 +212,7 @@ public class MenuController extends BaseController {
      * @return List<MenuNode> 菜单节点集合
      */
     private List<MenuNode> getMenuNode(String pid) {
-        List<MenuNode> menuList = delegateMapper.selectList(NAMESPACE + ".getMenuNode", pid);
+        List<MenuNode> menuList = delegateService.selectList(NAMESPACE + ".getMenuNode", pid);
         return menuList;
     }
 
@@ -229,7 +229,7 @@ public class MenuController extends BaseController {
         paramMap.put("roleId", roleId);
         paramMap.put("menuId", pid);
 
-        List<MenuNode> menuList = delegateMapper.selectList(NAMESPACE + ".getMenuCheckedNode", paramMap);
+        List<MenuNode> menuList = delegateService.selectList(NAMESPACE + ".getMenuCheckedNode", paramMap);
         return menuList;
     }
 
