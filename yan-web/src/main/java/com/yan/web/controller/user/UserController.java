@@ -1,14 +1,15 @@
 package com.yan.web.controller.user;
 
-import com.yan.dao.mapper.user.SysUserMapper;
-import com.yan.dao.mapper.user.UserRoleRelMapper;
+import com.yan.api.user.SysUserService;
+import com.yan.api.user.UserRoleRelService;
 import com.yan.common.model.MsgModel;
 import com.yan.common.model.PageModel;
-import com.yan.core.annotation.MapperInject;
 import com.yan.core.controller.BaseController;
 import com.yan.dao.model.user.SysUser;
+import com.yan.dao.model.user.SysUserExample;
 import com.yan.dao.model.user.UserRoleRel;
 import com.yan.dao.model.user.UserRoleRelExample;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,8 +34,11 @@ import java.util.List;
 @RequestMapping("/common/user")
 public class UserController extends BaseController {
 
-    @MapperInject(SysUserMapper.class)
-    private SysUserMapper mapper;
+    @Autowired
+    private SysUserService sysUserService;
+
+    @Autowired
+    private UserRoleRelService userRoleRelService;
 
     @RequestMapping("/manage")
     public String manage() {
@@ -44,9 +48,9 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public PageModel<SysUser> list(int offset, int limit, String search, String sort, String order) {
-        this.offsetPage(offset, limit);
-        List<SysUser> list = mapper.selectByExample(null);
-        return this.resultPage(list);
+        SysUserExample example = new SysUserExample();
+        PageModel<SysUser> pageModel = sysUserService.selectByExampleForOffsetPage(example, offset, limit);
+        return pageModel;
     }
 
     /**
@@ -60,12 +64,11 @@ public class UserController extends BaseController {
     @ResponseBody
     public MsgModel roleSave(String userId, String roleStr) {
         List<String> roleIds = Arrays.asList(roleStr.split(","));
-        UserRoleRelMapper mapper = this.getMapper(UserRoleRelMapper.class);
 
         // 先清除历史数据
         UserRoleRelExample example = new UserRoleRelExample();
         example.createCriteria().andUserIdEqualTo(userId);
-        mapper.deleteByExample(example);
+        userRoleRelService.deleteByExample(example);
 
         // 添加
         for (String roleId : roleIds) {
@@ -74,7 +77,7 @@ public class UserController extends BaseController {
                 userRoleRel.setRelId(this.getUUID());
                 userRoleRel.setUserId(userId);
                 userRoleRel.setRoleId(roleId);
-                mapper.insertSelective(userRoleRel);
+                userRoleRelService.insertSelective(userRoleRel);
             }
         }
         return this.resultMsg("保存成功");
