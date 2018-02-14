@@ -1,16 +1,16 @@
 package com.yan.web.controller.product;
 
-import com.yan.dao.mapper.product.TbProductMapper;
+import com.yan.api.product.TbProductService;
+import com.yan.common.constant.DataSourceName;
 import com.yan.common.model.PageModel;
-import com.yan.core.annotation.MapperInject;
 import com.yan.core.controller.BaseController;
 import com.yan.dao.model.product.TbProduct;
+import com.yan.dao.model.product.TbProductExample;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * 名称：roductController<br>
@@ -27,8 +27,8 @@ import java.util.List;
 @RequestMapping("/demo/product")
 public class ProductController extends BaseController {
 
-    @MapperInject(TbProductMapper.class)
-    private TbProductMapper mapper;
+    @Autowired
+    private TbProductService tbProductService;
 
     @RequestMapping("/init")
     public String init() {
@@ -38,22 +38,9 @@ public class ProductController extends BaseController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public PageModel<TbProduct> list(int offset, int limit, String search, String sort, String order) {
-
-        // 使用原始方法
-        /*
-        DataSourceContextHolder.setDataSource("extendDataSource");
-		PageHelper.offsetPage(offset, limit);
-		List<TbProduct> list = mapper.selectByExample(null);
-		DataSourceContextHolder.clearDataSource();
-		return new PageModel<>(list);
-		*/
-
-        // 使用父类封装方法（推荐）
-        this.setDataSource("extendDataSource");
-        this.offsetPage(offset, limit);
-        List<TbProduct> list = mapper.selectByExample(null);
-        this.clearDataSource();
-        return this.resultPage(list);
+        TbProductExample example = new TbProductExample();
+        PageModel<TbProduct> pageModel = tbProductService.selectByExampleForOffsetPage(example, offset, limit);
+        return pageModel;
     }
 
 }
