@@ -27,10 +27,12 @@
             <name>用户管理</name>
             <url>/common/user/manage</url>
         </menuItem>
+        <!--
         <menuItem>
             <name>权限管理</name>
             <url>/common/permission/manage</url>
         </menuItem>
+        -->
     </menu>
     <menu name="角色与资源管理" icon="zmdi zmdi-lock-outline">
         <menuItem>
@@ -52,14 +54,28 @@
             <url>/druid/index.html</url>
         </menuItem>
     </menu>
+    <menu name="测试模块" icon="zmdi zmdi-bug">
+        <menuItem>
+            <name>Echarts测试</name>
+            <url>/echarts/init</url>
+        </menuItem>
+        <menuItem>
+            <name>搜索引擎测试</name>
+            <url>/solr/test</url>
+        </menuItem>
+        <menuItem>
+            <name>Queue消息发送</name>
+            <url>/jms/queue/test</url>
+        </menuItem>
+        <menuItem>
+            <name>Topic消息发送</name>
+            <url>/jms/topic/test</url>
+        </menuItem>
+    </menu>
     <menu name="帮助文档" icon="zmdi zmdi-help">
         <menuItem>
             <name>界面UI模板</name>
             <url>/template</url>
-        </menuItem>
-        <menuItem>
-            <name>API帮助文档</name>
-            <url>/resources/doc/index.html</url>
         </menuItem>
     </menu>
 </adminMenu>
