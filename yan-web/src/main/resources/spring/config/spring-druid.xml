@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<!--
  Copyright (c) 2017 Yanzheng [https://github.com/micyo202/yan]
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -32,7 +32,7 @@
     <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
         <property name="patterns">
             <list>
-                <value>com.yan..*.controller..*.*</value>
+                <value>com.yan.web.*</value>
             </list>
         </property>
     </bean>
