@@ -28,12 +28,11 @@
        http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
        http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.15.2.xsd">
 
-
     <!-- ActiveMQ 连接工厂 -->
     <!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供-->
     <!-- 如果连接网络：tcp://ip:61616；未连接网络：tcp://localhost:61616 以及用户名，密码-->
     <!-- 方法一：使用 Xbean 进行配置 -->
-    <amq:connectionFactory id="amqConnectionFactory" brokerURL="${amq.brokerURL}" userName="${amq.userName}" password="${amq.password}" />
+    <amq:connectionFactory id="amqConnectionFactory" brokerURL="${jms.brokerURL}" userName="${jms.userName}" password="${jms.password}" />
     <!-- 方法二：普通方式进行配置 -->
     <!--
     <bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
@@ -53,25 +52,6 @@
         <!-- Session缓存数量 -->
         <property name="sessionCacheSize" value="100"/>
     </bean>
-
-
-    <!-- ******配置 Spring JmsTemplate 的消息生产者****** Start -->
-    <!-- 定义JmsTemplate的Queue类型 -->
-    <bean id="jmsQueueTemplate" class="org.springframework.jms.core.JmsTemplate">
-        <!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->
-        <constructor-arg ref="connectionFactory"/>
-        <!-- 非pub/sub模型（发布/订阅），即队列模式 -->
-        <property name="pubSubDomain" value="false"/>
-    </bean>
-    <!-- 定义JmsTemplate的Topic类型 -->
-    <bean id="jmsTopicTemplate" class="org.springframework.jms.core.JmsTemplate">
-        <!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->
-        <constructor-arg ref="connectionFactory"/>
-        <!-- pub/sub模型（发布/订阅） -->
-        <property name="pubSubDomain" value="true"/>
-    </bean>
-    <!-- ******配置 Spring JmsTemplate 的消息生产者****** End -->
-
 
     <!-- ******配置消息消费监听器****** Start -->
     <!-- Queue消息监听器 -->
