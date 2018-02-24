@@ -28,10 +28,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- Yan 配置 使用自定义注解 @LogInject 注入 logger 对象 -->
-    <bean id="logger" class="com.yan.core.injector.LoggerInjector"/>
-
-    <!-- Yan 配置 使用自定义注解 @MapperInject 注入 mapper 对象 -->
-    <bean id="mapper" class="com.yan.core.injector.MapperInjector"/>
+    <bean id="loggerInjector" class="com.yan.core.injector.LoggerInjector"/>
 
     <!-- 启用缓存 -->
     <cache:annotation-driven cache-manager="cacheManager"/>
