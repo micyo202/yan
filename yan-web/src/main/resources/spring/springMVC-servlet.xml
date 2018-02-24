@@ -24,16 +24,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
     <!-- 自动将控制器加载到bean -->
-    <context:component-scan base-package="com.yan" use-default-filters="false">
+    <context:component-scan base-package="com.yan.web" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -45,9 +43,6 @@
 
     <!-- 自动注册 DefaultAnnotationHandlerMapping 与 AnnotationMethodHandlerAdapter 两个 bean, 解决了 @Controller 注解的使用前提配置 -->
     <mvc:annotation-driven/>
-
-    <!-- 在 Controller 中开启生命式事物，在 @Controller 下的方法上使用 @Transactional -->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <!-- 根目录'/'对应页面 index.jsp 后缀名 .jsp 由视图解析器添加 -->
     <mvc:view-controller path="/" view-name="/index"/>
