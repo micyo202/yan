@@ -89,7 +89,7 @@
 		</li>
 		<li id="logo" class="hidden-xs">
 			<!-- <img src="${pageContext.request.contextPath}/resources/images/logo.png"/> -->
-			<span id="system_title"> Yan Frame Demo</span>
+			<span id="system_title">Yan Frame</span>
 		</li>
 		<li class="pull-right">
 			<ul class="hi-menu">
@@ -241,13 +241,15 @@
 		</div>
 		<div class="content_main">
 			<div id="iframe_home" class="iframe cur">
-				<p><h4>Yan Frame Demo</h4></p>
-				<p><b>该项目这是一个基于 SpringMVC+Spring+MyBatis（SSM）支持分布式的高效率便捷开发框架，使开发人员更专注于业务，达到面向业务开发</b></p>
-				<p><b>项目使用 Maven 构建便于项目管理，支持 MySql、Oracle、Mongodb 等主流数据库</b></p>
-				<p><b>前端采用基于 Boostrap 实现的响应式布局，支持移动端，并集成了一系列的动画效果插件，整体界面美观大方，可优雅的与后台完成交互操作</b></p>
-				<p><b>项目目标为中小型企业打造全方位的J2EE企业级开发解决方案</b></p>
-				<p><b>代码已托管至<a href="https://github.com/micyo202/yan"> github</a>，目前正在不断完善，敬请期待...</b></p>
-				<p>Created by Yanzheng on 2017-08-01</p>
+				<p><h4>Yan</h4></p>
+				<p><b>本项目是一整套整合 Dubbo+Zookeeper+SpringMVC+Spring+MyBatis 支持分布式的高效率便捷开发RPC框架，使开发人员更专注于业务，达到面向业务开发</b></p>
+				<p><b>项目使用 Maven 构建，便于项目管理，可支持 Oracle、MySql 等主流数据库</b></p>
+				<p><b>项目模块化分层明确，代码规范，便于后期维护等工作</b></p>
+				<p><b>前端展示界面采用基于 Boostrap 实现的响应式布局，并集成了一系列的动画效果插件，整体界面简洁、美观大方并可优雅的与后台完成交互操作</b></p>
+				<p><b>项目目标是为中小型企业打造全方位的J2EE企业级开发解决方案，提高工作效率</b></p>
+				<p><b>该项目是<a href="https://github.com/micyo202/yan-demo" target="_blank">yan-demo</a>单节点项目的升级版，支持分布式，持续更新中，敬请期待...</b></p>
+				<p><b>代码已托管至<a href="https://github.com/micyo202/yan" target="_blank"> github</a>，目前正在不断完善，敬请期待...</b></p>
+				<p>Created by Yanzheng Since 2017</p>
 				<p>Copyright <a href="https://github.com/micyo202" target="_blank">https://github.com/micyo202</a>. All rights reserved.</p>
 			</div>
 		</div>
