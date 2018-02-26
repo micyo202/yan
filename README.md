@@ -6,7 +6,7 @@
   <img src="https://github.com/micyo202/yan/raw/master/yan-web/src/main/webapp/resources/images/logo.png" alt="Yan" title="Yan">
 </p>
 
-[![Beta](https://img.shields.io/badge/beta-0.2.0-brightgreen.svg)](https://github.com/micyo202/yan)
+[![Beta](https://img.shields.io/badge/beta-1.0.0-brightgreen.svg)](https://github.com/micyo202/yan)
 [![Downloads](https://img.shields.io/badge/downloads-3.5MB-yellow.svg)](https://github.com/micyo202/yan/archive/master.zip)
 [![Since](https://img.shields.io/badge/since-2017-blue.svg)](https://github.com/micyo202/yan)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/micyo202/yan/blob/master/LICENSE)
@@ -18,10 +18,10 @@
 项目模块化分层明确，代码规范，便于后期维护等工作。<br>
 前端展示界面采用基于 **Boostrap** 实现的响应式布局，并集成了一系列的动画效果插件，整体界面简洁、美观大方并可优雅的与后台完成交互操作。<br>
 项目目标是为中小型企业打造全方位的J2EE企业级开发解决方案，提高工作效率。<br>
-该项目是[yan-demo](https://github.com/micyo202/yan-demo)单节点项目的**升级版**，支持**分布式**，持续更新中，敬请期待...。
+该项目是[yan-demo](https://github.com/micyo202/yan-demo)单节点项目的**升级版**，支持**分布式**，持续更新中，敬请期待...
 
 ## 近期更新内容
-* **beta 1.0.0：项目整体改造，升级为RPC架构**
+* **beta 1.0.0：项目整体改造，升级为RPC架构。（注：若想查看非RPC版请移步至[https://gitee.com/micyo202/yan](https://gitee.com/micyo202/yan)）**
 * beta 0.1.0：模块优化，删除不必要的模块，优化代码（模块详情参考：三、项目结构）
 * beta 0.0.5：前端添加ECharts，便于图形化展示
 * beta 0.0.4：添加JMS（ActiveMQ）消息服务（目前仅测试方法，暂无业务流转，后期逐渐完善细化）
@@ -29,10 +29,10 @@
 * beta 0.0.2：优化整体代码、添加更多注释，结构更清晰、代码更易懂
 * beta 0.0.1：将原有[yan-demo](https://github.com/micyo202/yan-demo)项目重构，保留原有功能，模块拆分、优化项目结构
 
-## 项目所需工具及版本
-* zookeeper-3.4.11 下载地址：[http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.11/zookeeper-3.4.11.tar.gz](http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.11/zookeeper-3.4.11.tar.gz)
-* apache-activemq-5.15.2 下载地址：[http://www.apache.org/dyn/closer.cgi?filename=/activemq/5.15.2/apache-activemq-5.15.2-bin.zip&action=download](http://www.apache.org/dyn/closer.cgi?filename=/activemq/5.15.2/apache-activemq-5.15.2-bin.zip&action=download)
-* solr-7.1.0 下载地址：[https://mirrors.tuna.tsinghua.edu.cn/apache/lucene/solr/7.1.0/solr-7.1.0.zip](https://mirrors.tuna.tsinghua.edu.cn/apache/lucene/solr/7.1.0/solr-7.1.0.zip)
+## 项目所需工具及版本 *
+* zookeeper-3.4.11 [http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.11](http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.11)
+* apache-activemq-5.15.2 [http://activemq.apache.org/activemq-5152-release.html](http://activemq.apache.org/activemq-5152-release.html)
+* solr-7.1.0 [https://mirrors.tuna.tsinghua.edu.cn/apache/lucene/solr/7.1.0](https://mirrors.tuna.tsinghua.edu.cn/apache/lucene/solr/7.1.0)
 
 ## 一、项目开发环境&工具（Environment&Tools）
 * MacOS Sierra / Windows 7
@@ -97,15 +97,17 @@ yan -- 根目录
 |    |    |    ├── com.yan.api -- 核心接口包
 |    |    |    |    ├── jms -- 消息服务接口
 |    |    |    |    ├── persistence -- 持久化接口
-|    |    ├── resources -- 资源配置路径
 ├── yan-common -- 公共模块
 |    ├── main -- 主模块路径
 |    |    ├── java -- java类路径
 |    |    |    ├── com.yan.common -- 公共类包
-|    |    |    |    ├── constant -- 常亮定义类
+|    |    |    |    ├── annotation -- 注解类
+|    |    |    |    ├── aspect -- 切面类
+|    |    |    |    ├── constant -- 常量定义类
 |    |    |    |    ├── model -- 通用模型
-|    |    |    |    ├── support -- 支持类
-|    |    ├── resources -- 资源配置路径
+|    |    |    |    ├── service -- 泛型对象服务
+|    |    |    |    ├── spring -- spring扩展类
+|    |    |    |    ├── support -- 基础支持类
 ├── yan-core -- 核心模块（提供核心方法）
 |    ├── main -- 主模块路径
 |    |    ├── java -- java类路径
@@ -116,8 +118,6 @@ yan -- 根目录
 |    |    |    |    ├── injector -- 注入类
 |    |    |    |    ├── listener -- 消息消费者监听器
 |    |    |    |    ├── shiro -- 安全认证类
-|    |    |    |    ├── spring -- spring扩展类
-|    |    ├── resources -- 资源配置路径
 ├── yan-dao -- 数据库访问模块（该模块主要通过 mbg 插件生成相应的模型及接口映射）
 |    ├── main -- 主模块路径
 |    |    ├── java -- java类路径
@@ -125,6 +125,7 @@ yan -- 根目录
 |    |    |    |    ├── mapper -- 接口映射类
 |    |    |    |    ├── model -- 数据库模型类
 |    |    ├── resources -- 资源配置路径
+|    |    |    ├── database -- 数据库sql文件
 |    |    |    ├── mybatis -- sqlMap映射文件
 |    |    |    ├── properties -- 配置文件
 ├── yan-plugins -- 插件模块（自定义插件）
@@ -132,20 +133,17 @@ yan -- 根目录
 |    |    ├── java -- java类路径
 |    |    |    ├── com.yan.plugins -- 插件包
 |    |    |    |    ├── mybatis.generator -- mbg插件类（包含注释插件、序列化插件）
-|    |    ├── resources -- 资源配置路径
 ├── yan-service -- 服务模块（核心接口方法实现）
 |    ├── main -- 主模块路径
 |    |    ├── java -- java类路径
 |    |    |    ├── com.yan.service -- 服务包
 |    |    |    |    ├── jms -- 消息服务接口实现类
 |    |    |    |    ├── persistence -- 持久化接口实现类
-|    |    ├── resources -- 资源配置路径
 ├── yan-web -- web模块
 |    ├── main -- 主模块路径
 |    |    ├── java -- java类路径
-|    |    |    ├── com.yan.controller -- 业务处理控制器包
+|    |    |    ├── com.yan.web.controller -- 业务处理控制器包
 |    |    ├── resources -- 资源配置路径
-|    |    |    ├── database -- 数据库sql文件
 |    |    |    ├── properties -- 项目配置文件
 |    |    |    ├── spring -- spring的配置文件
 |    |    ├── webapp -- web应用根路径
@@ -157,55 +155,88 @@ yan -- 根目录
 ## 四、项目入门（Introduction）
 > 1. 下载项目，并且导入到IDE开发工具中（建议使用：IntelliJ IDEA）
 > 2. 使用 **Maven** 构建项目
-> 3. 创建数据库并执行 **yan-web** 中 **resources/database** 路径下的 **.sql** 文件，创建整个项目必要的表（如：用户表、资源表、日志记录表等...）
-> 4. 修改 **yan-web** 中 **resources/properties** 路径下的 **.properties** 配置文件（具体修改方法，详见 - 五、配置说明）
-> 5. 完成以上步骤就可以正常部署启动服务了（使用 **jetty / tomcat** 均可）*[详细部署过程在这里就不多做阐述了]*，接下来进入开发阶段
-> 6. 根据实际业务需求，在对应的数据库中创建业务表，表命名规范：“模块名_表名” 如：**SYS_RESOURCE**（系统模块资源表）
-> 7. 修改 **yan-web** 中 **resources** 路径下的 **generatorConfig.xml** 中的 *targetPackage* 包名及 *tableName* 表名，使用 **MyBatis generator** 插件生成对应的持久层模块代码（Maven 执行命令：**mvn mybatis-generator:generate**），具体配置请参考[MyBatis GeneratorXML Configuration](http://www.mybatis.org/generator/configreference/xmlconfig.html)，注：请将所有业务对象模型 **Model** 生成在 **yan-model** 模块下，所有 **mapper接口** 及 **sql映射xml** 生成在 **yan-api** 模块下
-> 8. 在 **yan-web** 模块中 **src/main/java** 路径下创建对应的 **controller** 控制器，该控制器类命名规范以 **Controller** 结尾，并继承于 **BaseController** 类，所有的业务操作基本都是在这里完成
-> 9. 编写控制器业务处理代码，具体使用参考 - 七、示例代码
-> 10. 在 **yan-web** 模块中 **src/main/webapp/views** 路径下创建对应的jsp页面，并编写前端页面展示代码
+> 3. 创建数据库并执行 **yan-dao** 模块中 **resources/database** 路径下的 **yan.sql** 文件，创建整个项目必要的表（如：用户表、资源表、日志记录表等...）
+> 4. 分别修改 **yan-dao、yan-service、yan-web** 模块中 **resources/properties** 路径下的 ***.properties** 配置文件（具体修改方法及对应属性解释，详见 - 五、配置说明）
+> 5. 完成以上步骤就可以正常部署启动服务了：<br>
+>    a). 启动 **zookeeper** 服务（必要服务，不启动该服务导致项目无法正常运行）<br>
+>    b). 启动 **activemq** 服务（非必要服务，若不启动该服务，则项目运行中会有jms监听器异常，但不影响整体能）<br>
+>    c). 启动 **solr** 服务（非必要服务，若不启动该服务，则搜索引擎无法使用，但不影响整体功能）<br>
+> *[以上服务具体配置及启动命令，这里我不多做阐述了，不知道的可自行百度搜索]*
+> 6. 启动完以上基础的服务后，就可以运行项目了<br>
+>    a). 首先启动 **yan-service**，直接运行该模块中的 **com.yan.service.ServiceApp.main()** 方法来启动<br>
+>    b). 其次启动 **yan-web** ，可（使用 **jetty / tomcat** 均可）*[详细部署过程在这里就不多做阐述了]*，启动成功后即可访问web应用界面。接下来进入开发阶段
+> 7. 根据实际业务需求，在对应的数据库中创建业务表，表命名规范：“模块名_表名” 如：**SYS_RESOURCE**（系统模块资源表）
+> 8. 修改 **yan-dao** 模块中 **resources** 路径下的 **generatorConfig.xml** 中的 *targetPackage* 包名及 *tableName* 表名，使用 **MyBatis generator** 插件生成对应的持久层模块代码（Maven 执行命令：**mvn mybatis-generator:generate**），具体配置请参考[MyBatis GeneratorXML Configuration](http://www.mybatis.org/generator/configreference/xmlconfig.html)
+> 9. 在 **yan-api** 模块中 **src/main/java** 路径下创建对应的**接口**
+> 10. 在 **yan-service** 模块中 **src/main/java** 路径下创建对应的**接口服务实现类**，并在 **src/main/resources/META-INF/spring** 路径下的 **spring-dubbo-provider.xml** 配置中添加声明暴露对应服务接口
+> 11. 在 **yan-web** 模块中 **src/main/java** 路径下创建对应的 **controller** 控制器，该控制器类命名规范以 **Controller** 结尾，继承 **BaseController** 类，编写 **controller** 控制器业务处理代码（具体使用参考 - 七、示例代码），并在 **src/main/resources/spring/config** 路径下的 **spring-dubbo-customer.xml** 配置中添加声明暴露对应服务接口
+> 12. 在 **yan-web** 模块中 **src/main/webapp/views** 路径下创建对应的jsp页面，并编写前端页面展示代码
 
 ## 五、配置说明（Properties）
+
+> **yan-dao** 模块 **resources/properties** 中配置文件说明
+
 | 名称（Key值）| 描述 |
 | --- | :--- |
+| **mbg.path** | mybatis generator 插件生成代码的路径（绝对路径） |
+| **mbg.db.username** | mybatis generator 插件连接数据库的用户名 |
+| **mbg.db.password** | mybatis generator 插件连接数据库的密码 |
+| **mbg.db.driverClassName** | mybatis generator 插件连接数据库的驱动 |
+| **mbg.db.url** | mybatis generator 插件连接数据库的地址 |
+
+> **yan-service** 模块 **resources/properties** 中配置文件说明
+
+| 名称（Key值）| 描述 |
+| --- | :--- |
+| **default.datasource.username** | 默认数据库用户名 |
+| **default.datasource.password** | 默认数据库密码 |
+| **default.datasource.driverClassName** | 默认数据库驱动类 |
+| **default.datasource.url** | 默认数据库链接地址 |
+| **dextend.datasource.username** | 扩展数据库用户名（用于多数据源切换） |
+| **dextend.datasource.password** | 扩展数据库密码（用于多数据源切换） |
+| **dextend.datasource.driverClassName** | 扩展数据库驱动类（用于多数据源切换） |
+| **dextend.datasource.url** | 扩展数据库链接地址（用于多数据源切换） |
+| datasource.initialSize | 初始化时建立物理连接的个数 |
+| datasource.minIdle | 最小连接池数量 |
+| datasource.maxActive | 最大连接池数量 |
+| datasource.maxWait | 获取连接时最大等待时间，单位毫秒 |
+| datasource.timeBetweenEvictionRunsMillis | 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 |
+| datasource.minEvictableIdleTimeMillis | 配置一个连接在池中最小生存的时间，单位是毫秒 |
+| datasource.validationQuery | 用来检测连接是否有效的sql |
+| datasource.testWhileIdle | 建议配置为true，不影响性能，并且保证安全性 |
+| datasource.testOnBorrow | 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。 |
+| datasource.testOnReturn | 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能 |
+| datasource.poolPreparedStatements | 是否缓存preparedStatement，也就是PSCache |
+| datasource.maxPoolPreparedStatementPerConnectionSize | 每个连接上PSCache的大小 |
+| datasource.filters | 属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：监控统计用的filter:stat日志用的filter:log4j防御sql注入的filter:wall |
+|- |- |
+| dubbo.application.name | dubbo 应用服务提供者名称 |
+| **dubbo.protocol.port** | dubbo 协议暴露服务的端口 |
+| **dubbo.registry.address** | dubbo 使用 zookeeper 注册中心暴露服务的地址 |
+|- |- |
+| **jms.brokerURL** | activeMQ 服务地址 |
+| **jms.userName** | activeMQ 服务管理端用户名 |
+| **jms.password** | activeMQ 服务管理端密码 |
+
+> **yan-web** 模块 **resources/properties** 中配置文件说明
+
+| 名称（Key值）| 描述 |
+| --- | :--- |
+| **jms.brokerURL** | activeMQ 服务地址 |
+| **jms.userName** | activeMQ 服务管理端用户名 |
+| **jms.password** | activeMQ 服务管理端密码 |
+|- |- |
+| logback.name | 日志文件前缀名称（一般使用项目名称，便于区分） |
+| **logback.path** | 日志存放路径（绝对路径） |
+| logback.maxHistory | 日志最大的历史天数 |
+| **logback.db.username** | 日志写入数据库时连接数据库的用户名 |
+| **logback.db.password** | 日志写入数据库时连接数据库的密码 |
+| **logback.db.driverClassName** | 日志写入数据库时连接数据库的驱动 |
+| **logback.db.url** | 日志写入数据库时连接数据库的url |
+|- |- |
 | **setting.upload** | 文件上传路径（绝对路径） |
 |- |- |
-| **logback.name** | 日志前缀名称（一般使用项目名称，便于区分） |
-| **logback.path** | 日志存放路径（绝对路径） |
-|- |- |
 | **solr.builder** | Solr搜索引擎服务地址 |
-|- |- |
-| **amq.brokerURL** | activeMQ服务地址 |
-| **amq.userName** | activeMQ管理端用户名 |
-| **amq.password** | activeMQ管理端密码 |
-|- |- |
-| **mbg.jar** | mgb插件链接数据库所需的jar包（绝对路径） |
-| **mbg.path** | 生成代码的路径（绝对路径） |
-|- |- |
-| **default.db.username** | 默认数据库用户名 |
-| **default.db.password** | 默认数据库密码 |
-| **default.db.driverClassName** | 默认数据库驱动类 |
-| **default.db.url** | 默认数据库链接地址 |
-|- |- |
-| **dextend.db.username** | 扩展数据库用户名（用于多数据源切换） |
-| **dextend.db.password** | 扩展数据库密码（用于多数据源切换） |
-| **dextend.db.driverClassName** | 扩展数据库驱动类（用于多数据源切换） |
-| **dextend.db.url** | 扩展数据库链接地址（用于多数据源切换） |
-|- |- |
-| db.initialSize | 初始化时建立物理连接的个数 |
-| db.minIdle | 最小连接池数量 |
-| db.maxActive | 最大连接池数量 |
-| db.maxWait | 获取连接时最大等待时间，单位毫秒 |
-| db.timeBetweenEvictionRunsMillis | 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 |
-| db.minEvictableIdleTimeMillis | 配置一个连接在池中最小生存的时间，单位是毫秒 |
-| db.validationQuery | 用来检测连接是否有效的sql |
-| db.testWhileIdle | 建议配置为true，不影响性能，并且保证安全性 |
-| db.testOnBorrow | 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。 |
-| db.testOnReturn | 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能 |
-| db.poolPreparedStatements | 是否缓存preparedStatement，也就是PSCache |
-| db.maxPoolPreparedStatementPerConnectionSize | 每个连接上PSCache的大小 |
-| db.filters | 属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：监控统计用的filter:stat日志用的filter:log4j防御sql注入的filter:wall |
 
 ## 六、常用方法（Methods）
 ##### *方法均在继承于BaseController的controller类中使用this.metodName或直接使用methodName来进行调用（注：methodName代表需要调用的方法名称，方法名称见下表）*
@@ -219,18 +250,16 @@ yan -- 根目录
 | getResponse | 无 | HttpServletResponse 服务器响应结果 | 获取服务器响应结果 response 对象 |
 | setResponse | response 服务器响应结果 | 无 | 设置服务器响应结果 response 对象 |
 | **getSessionUser** | 无 | TbSysUser 用户对象 | 获取登录成功后 session 中的存储的用户信息 |
-| **getMapper** | type 生成的 Mapper 接口对象类型 | T 泛型，传入参数对象的类型Mapper | 获取 mapper 对象 |
-| **getMapper** | 无 | DelegateMapper 通用 mapper，查看自定义 sqlMap 的代理 mapper 对象 | 获取 delegateMapper 对象 |
-| **setDataSource** | dataSource 数据源名称（必须是spring配置中包含的名称） | 无 | 动态切换数据源方法，设置数据源名称 |
-| **clearDataSource** | 无 | 无 | 清除数据源，在切换完数据源后，进行清理，将数据源还原为默认数据源 |
-| **offsetPage** | offset 起始数量；limit 限制条数 | 无 | 分页查询范围，参数均由 bootstrapTable 分页插件进行传入，无需人工控制，只需调用方法即可 |
+|- |- |- |- |
+| **getService** | 无 | DelegateService 通用 Service，查看自定义 sqlMap 的代理 service 对象 | 获取 delegateService 对象 |
 | **resultPage** | list 查询到的分页结果，为 Page 对象 | PageModel<T> 自定义的分页模型，T 为查询的对象 | 分页结果集对象 |
 | **resultMsg** | status 状态值（可根据需求任意设置，无强制标准）；msg 消息内容；res 返回的对象 | MsgModel 自定义消息模型 | 消息返回对象 |
 | **fileUpLoad** | request 上传方法中传递的 request 对象，并非父类中的 request 对象 | List<String> 上传文件成功后的新文件名称，以集合形式返回 | 文件上传方法，支持多个文件上传 |
 | **fileDownLoad** | fileName 需要下载的文件名称 | ResponseEntity<byte[]> 下载的文件，在浏览器会进行下载 | 文件下载方法 |
-| isNull | obj 需要进行判断的对象 | boolean 为null或空返回 true，否则返回 false | 判断对象是否为null，或空 |
-| obj2Str | obj 需要转换的对象 | String 对象的值（为null则返回""） | 对象转换为 String，通常用于获取 Map 集合中的对象时使用 |
-| getUUID | 无 | String 32位主键字符串 | 生成 uuid 主键，长度为32位，且为大写模式 |
+|- |- |- |- |
+| **isNull** | obj 需要进行判断的对象 | boolean 为null或空返回 true，否则返回 false | 判断对象是否为null，或空 |
+| **obj2Str** | obj 需要转换的对象 | String 对象的值（为null则返回""） | 对象转换为 String，通常用于获取 Map 集合中的对象时使用 |
+| **getUUID** | 无 | String 32位主键字符串 | 生成 uuid 主键，长度为32位，且为大写模式 |
 | base64Encoder | str 需要进行编码的字符串 | String 进行编码后的结果字符串 | 对字符串进行 base64 编码 |
 | base64Decoder | str 已进行 base64 编码的编码字符串 | String 解码后的原字符串 | 对字符串进行 base64 解码 |
 | md5 | str 需要进行 md5 加密的字符串 | String 加密后的结果 | 对字符串进行 md5 加密算法 |
@@ -255,62 +284,47 @@ public class XxxController extends BaseController {
 ##### 获取日志日志记录Logger对象
 
 ```java
-// 使用注解获取
+// 方法一：使用注解获取
 @LogInject
 private static Logger log;
 
-// 使用工厂方法获取
+// 方法二：使用工厂方法获取
 private static Logger log = LoggerFactory.getLogger(XxxController.class);
 ```
 
-##### 获取mapper对象
+##### 获取service对象
 
 ```java
-// 注解方式获取delegateMapper
-@MapperInject
-private DelegateMapper delegateMapper;
-// 注解方式获取对象对应的mapper
-@MapperInject(XxxMapper.class)
-private XxxMapper mapper;
+// 获取delegateService对象
+@Autowired
+private DelegateService delegateService;
 
-// 获取delegateMapper
-this.getMapper();
-// 获取对象对应的mapper
-this.getMapper(XxxMapper.class);
-```
-
-##### 动态切换数据源
-
-```java
-// 注解切换数据源，默认切换扩展数据源
-@DynamicDataSource
-public String init(){
-	...
-}
-
-// 注解切换数据源，传入ENUM类型的数据源名称
-@DynamicDataSource(DataSourceName.EXTEND)
-public String init(){
-	...
-}
-
-// 调用父类方法执行切换数据源（参数名称建议使用框架中已经定义好的，DataSourceName.DEFAULT/EXTEND.getName()）
-this.setDataSource("extendDataSource");
-	...
-this.clearDataSource();
+// 获取泛型Service对象
+@Autowired
+private XxxService xxxService;
 ```
 
 ##### 分页查询后台代码
 
 ```java
+// 使用对象 service 分页查询数据
 @RequestMapping("/list")
 @ResponseBody
 public PageModel<Xxx> list(int offset, int limit) {
-	// 调用父类方法传入分页参数
-	this.offsetPage(offset, limit);
-	List<Xxx> list = mapper.selectByExample(null); // 调用查询方法
-	return this.resultPage(list);
+	XxxExample example = new XxxExample();
+   PageModel<Xxx> pageModel = xxxService.selectByExampleForOffsetPage(example, offset, limit);
+   return pageModel;
 }
+
+// 使用 delegateService 自定义 sqlMap 分页查询数据
+@RequestMapping("/list")
+@ResponseBody
+public PageModel<Xxx> list(int offset, int limit) {
+	String statement = "com.yan.dao.mapper.xxx.XxxCustomMapper.getXxx";
+	PageModel<Xxx> pageModel = delegateService.selectPagination(statement, offset, limit);
+   return pageModel;
+}
+
 ```
 
 ##### 分页查询前台代码
@@ -355,64 +369,69 @@ public ResponseEntity<byte[]> download(String fileName) {
 	return this.fileDownLoad(fileName);
 }
 ```
-##### 常用DelegateMapper及对象Mapper方法
+
+##### 常用 delegateService 方法
 
 ```java
 // 使用自定义sql模板查询单个对象
-Demo demo = delegateMapper.selectOne(statement);
-Demo demo = delegateMapper.selectOne(statement, parameter);
+Xxx xxx = delegateService.selectOne(statement);
+Xxx xxx = delegateService.selectOne(statement, parameter);
 		
 // 使用自定义sql模板查询对象集合
-List<Demo> list = delegateMapper.selectList(statement);
-List<Demo> list = delegateMapper.selectList(statement, parameter);
+List<Xxx> list = delegateService.selectList(statement);
+List<Xxx> list = delegateService.selectList(statement, parameter);
 
 // 使用自定义sql模板有范围的查询，（每次返回指定的对象条数集合）
-List<Demo> list = delegateMapper.selectList(statement, parameter, rowBounds);
+List<Xxx> list = delegateService.selectList(statement, parameter, rowBounds);
 
 // 使用自定义sql模板进行分页查询
-PageModel<Demo> page = delegateMapper.selectPagination(statement, offset, limit);
-PageModel<Demo> page = delegateMapper.selectPagination(statement, parameter, offset, limit);
+PageModel<Xxx> pageModel = delegateService.selectPagination(statement, offset, limit);
+PageModel<Xxx> pageModel = delegateService.selectPagination(statement, parameter, offset, limit);
 
 // 使用自定义sql模板保存
-int res = delegateMapper.insert(statement);
-int res = delegateMapper.insert(statement, parameter);
+int res = delegateService.insert(statement);
+int res = delegateService.insert(statement, parameter);
 
 // 使用自定义sql模板修改
-int res = delegateMapper.update(statement);
-int res = delegateMapper.update(statement, parameter);
+int res = delegateService.update(statement);
+int res = delegateService.update(statement, parameter);
 
 // 使用自定义sql模板删除
-int res = delegateMapper.delete(statement);
-int res = delegateMapper.delete(statement, parameter);
+int res = delegateService.delete(statement);
+int res = delegateService.delete(statement, parameter);
+```
 
+##### 常用对象 service 方法
+
+```java
 // 使用对象方法根据主键查询
-Demo demo = mapper.selectByPrimaryKey(id);
+Xxx xxx = xxxService.selectByPrimaryKey(id);
 
-// 使用对象方法根据criteria查询
-List<Demo> list = mapper.selectByExample(example);
+// 使用对象方法根据 criteria 查询
+List<Xxx> list = xxxService.selectByExample(example);
 
-// 使用对象方法根据criteria分页查询
-this.offsetPage(offset, limit);
-List<Demo> list = mapper.selectByExample(example);
-this.resultPage(list); // 返回的结果集
+// 方法一：使用对象方法根据 criteria 分页查询（推荐）
+PageModel<Xxx> pageModel = xxxService.selectByExampleForOffsetPage(example, offset, limit);
+// 方法二：使用对象方法根据criteria分页查询
+PageModel<Xxx> pageModel = xxxService.selectByExampleForStartPage(example, pageNum, pageSize);
 
 // 使用对象方法添加
-int res = mapper.insert(record);
-int res = mapper.insertSelective(record);
+int res = xxxService.insert(record);
+int res = xxxService.insertSelective(record);
 
 // 使用对象方法根据主键修改
-int res = mapper.updateByPrimaryKey(record);
-int res = mapper.updateByPrimaryKeySelective(record);
+int res = xxxService.updateByPrimaryKey(record);
+int res = xxxService.updateByPrimaryKeySelective(record);
 
-// 使用对象方法根据criteria修改
-int res = mapper.updateByExample(record, example);
-int res = mapper.updateByExampleSelective(record, example);
+// 使用对象方法根据 criteria 修改
+int res = xxxService.updateByExample(record, example);
+int res = xxxService.updateByExampleSelective(record, example);
 
 // 使用对象方法根据主键删除
-int res = mapper.deleteByPrimaryKey(productCode);
+int res = xxxService.deleteByPrimaryKey(productCode);
 
-// 使用对象方法删除根据criteria删除
-int res = mapper.deleteByExample(example);
+// 使用对象方法删除根据 criteria 删除
+int res = xxxService.deleteByExample(example);
 ```
 
 *更多方法使用请参考项目中的示例代码*
