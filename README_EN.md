@@ -158,9 +158,9 @@ yan -- Root directory
 > 3. Create the database and execute the **yan.sql** file under the **resources/database** path in the **yan-dao** module, and create the necessary tables for the entire project (such as user table, resource table, log book, etc..)
 > 4. Modify the ***.properties** configuration file under **resources/properties** path in **yan-dao**, **yan-service** and **yan-web** modules respectively (specific modification method and corresponding attribute interpretation, Reference - Properties)
 > 5. Complete the above steps to deploy the startup service:<br>
->    a). Start the **zookeeper** service (necessary service, not starting the service causes the project to not run properly)<br>
->    b). Start the **activemq** service (non-essential services, if the service is not started, there will be JMS listener exceptions in the project run, but not the overall energy)<br>
->    c). Start the **solr** service (non-essential services, if the service is not started, the search engine cannot be used, but does not affect the overall functionality)<br>
+>    a). Start the **zookeeper** service, command: **bin/zkServer.sh start**, port: **2181** (necessary service, not starting the service causes the project to not run properly)<br>
+>    b). Start the **activemq** service, command: **bin/activemq start**, port: **8161 / 61616** (non-essential services, if the service is not started, there will be JMS listener exceptions in the project run, but not the overall energy)<br>
+>    c). Start the **solr** service, command: **bin/solr start**, port: **8983** (non-essential services, if the service is not started, the search engine cannot be used, but does not affect the overall functionality)<br>
 > *[the above service specific configuration and start command, here I do not elaborate, do not know the self-baidu search]*
 > 6. After starting the above basic services, you can run the project<br>
 >    a). Start by launching **yan-service** and running the **com.yan.service.ServiceApp.main()** method in the module directly<br>
