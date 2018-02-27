@@ -7,7 +7,7 @@
 </p>
 
 [![Beta](https://img.shields.io/badge/beta-1.0.0-brightgreen.svg)](https://github.com/micyo202/yan)
-[![Downloads](https://img.shields.io/badge/downloads-3.5MB-yellow.svg)](https://github.com/micyo202/yan/archive/master.zip)
+[![Downloads](https://img.shields.io/badge/downloads-3.9MB-yellow.svg)](https://github.com/micyo202/yan/archive/master.zip)
 [![Since](https://img.shields.io/badge/since-2017-blue.svg)](https://github.com/micyo202/yan)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/micyo202/yan/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/micyo202/yan.svg?style=social&label=Stars)](https://github.com/micyo202/yan)
