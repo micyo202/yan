@@ -21,7 +21,8 @@
 该项目是[yan-demo](https://github.com/micyo202/yan-demo)单节点项目的**升级版**，支持**分布式**，持续更新中，敬请期待...
 
 ## 近期更新内容
-* **beta 1.0.0：项目整体改造，升级为RPC架构。（注：若想查看非RPC版请移步至[https://gitee.com/micyo202/yan](https://gitee.com/micyo202/yan)）**
+* **beta 1.0.1：添加spring-session+redis技术，用于解决负载均衡下session共享问题**
+* beta 1.0.0：项目整体改造，升级为RPC架构。（注：若想查看非RPC版请移步至[https://gitee.com/micyo202/yan](https://gitee.com/micyo202/yan)）
 * beta 0.1.0：模块优化，删除不必要的模块，优化代码（模块详情参考：三、项目结构）
 * beta 0.0.5：前端添加ECharts，便于图形化展示
 * beta 0.0.4：添加JMS（ActiveMQ）消息服务（目前仅测试方法，暂无业务流转，后期逐渐完善细化）
@@ -58,6 +59,7 @@ Dubbo | 2.6.0 | [http://dubbo.io](http://dubbo.io)
 Solr | 7.1.0 | [https://lucene.apache.org/solr/](https://lucene.apache.org/solr/)
 ActiveMQ | 5.15.2 | [http://activemq.apache.org](http://activemq.apache.org)
 Druid | 1.1.5 | [https://github.com/alibaba/druid](https://github.com/alibaba/druid)
+Redis | 4.0.8 | [https://redis.io](https://redis.io)
 Jackson | 2.9.2 | [https://github.com/FasterXML/jackson](https://github.com/FasterXML/jackson)
 Dom4j | 1.6.1 | [http://www.dom4j.org](http://www.dom4j.org)
 Ehcache | 2.6.11| [http://www.ehcache.org/](http://www.ehcache.org/)
