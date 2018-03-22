@@ -38,6 +38,7 @@
 ## 一、项目开发环境&工具（Environment&Tools）
 * MacOS Sierra / Windows 7
 * MySql 5.7
+* Redis 4.0.8
 * JDK 1.8
 * CentOS 7
 * IntelliJ IDEA 2017.2.5 / Eclipse 4.6.1
