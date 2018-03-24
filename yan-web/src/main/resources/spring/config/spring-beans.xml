@@ -22,25 +22,10 @@
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       default-lazy-init="true" xmlns:cache="http://www.springframework.org/schema/cache"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.3.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       default-lazy-init="true"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- Yan 配置 使用自定义注解 @LogInject 注入 logger 对象 -->
     <bean id="loggerInjector" class="com.yan.core.injector.LoggerInjector"/>
-
-    <!-- 启用缓存 -->
-    <cache:annotation-driven cache-manager="cacheManager"/>
-    <!--声明一个缓存管理器（EhCacheCacheManager） 这里的实现代码是通过传入EhCache的CacheManager实例实现的 -->
-    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"
-          p:cache-manager-ref="ehcache"/>
-    <!--这里并不是EhCacheManagerFactoryBean的实例，而是EhCache中CacheManager的一个实例 -->
-    <!--因为Spring和EhCache都定义了CacheManager类型 -->
-    <bean id="ehcache"
-          class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="configLocation" value="classpath:/ehcache.xml"/>
-        <property name="shared" value="true"/>
-    </bean>
 
 </beans>
