@@ -6,7 +6,7 @@
   <img src="https://github.com/micyo202/yan/raw/master/yan-web/src/main/webapp/resources/images/logo.png" alt="Yan" title="Yan">
 </p>
 
-[![Beta](https://img.shields.io/badge/beta-1.0.0-brightgreen.svg)](https://github.com/micyo202/yan)
+[![Beta](https://img.shields.io/badge/beta-1.0.1-brightgreen.svg)](https://github.com/micyo202/yan)
 [![Downloads](https://img.shields.io/badge/downloads-3.9MB-yellow.svg)](https://github.com/micyo202/yan/archive/master.zip)
 [![Since](https://img.shields.io/badge/since-2017-blue.svg)](https://github.com/micyo202/yan)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/micyo202/yan/blob/master/LICENSE)
@@ -21,7 +21,8 @@ The goal of the project is to build a comprehensive J2EE enterprise development 
 This project is an upgraded version of [yan-demo](https://github.com/micyo202/yan-demo) single node project, which supports distributed and continuous updating. Please look forward to...
 
 ## Recent Updates
-* **beta 1.0.0：The overall project transformation is upgraded to RPC architecture. (Note: If you want to see the non-rpc version, please go to [https://gitee.com/micyo202/yan](https://gitee.com/micyo202/yan))**
+* **beta 1.0.1：add spring-session+redis technology to solve the problem of session sharing under load balancing**
+* beta 1.0.0：The overall project transformation is upgraded to RPC architecture. (Note: If you want to see the non-rpc version, please go to [https://gitee.com/micyo202/yan](https://gitee.com/micyo202/yan))
 * beta 0.1.0：Module optimization, removing unnecessary modules and optimizing code (Reference: **Construction**)
 * beta 0.0.5：The front end adds ECharts for graphical display
 * beta 0.0.4：Add the JMS (ActiveMQ) message service (currently only test methods, no business flow at the moment, and refinement after the later period)
