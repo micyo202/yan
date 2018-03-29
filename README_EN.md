@@ -223,6 +223,20 @@ yan -- Root directory
 
 | Name（Key value）| Describe |
 | --- | :--- |
+| **redis.maxIdle** | redis maximum number of free. |
+| **redis.maxTotal** | maximum number of database connections to the connection pool |
+| **redis.maxWaitMillis** | maximum connection waiting time |
+| **redis.minEvictableIdleTimeMillis** | minimum free time to drive out the connection by default of 1800000 milliseconds (30 minutes) |
+| **redis.numTestsPerEvictionRun** | maximum number of evictions from each check is negative: 1/abs(n), default 3 |
+| **redis.timeBetweenEvictionRunsMillis** | the time interval (milliseconds) from the scan (milliseconds) if it is negative, does not run out of the thread, default -1 |
+| **redis.testWhileIdle** | check if the connection is removed from the pool, and if the test fails, remove the connection from the pool and try to remove the other |
+| **redis.testOnBorrow** | check validity in free time, false by default |
+| **redis.hostName** | redis server host name |
+| **redis.port** | the connection port number is 6379 by default |
+| **redis.password** | connect the password |
+| **redis.usePool** | use connection pooling |
+| **redis.maxInactiveIntervalInSeconds** | set the cache expiration time |
+|- |- |
 | **jms.brokerURL** | ActiveMQ service address |
 | **jms.userName** | ActiveMQ service management end user name |
 | **jms.password** | The activeMQ service management terminal password |
