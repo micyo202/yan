@@ -13,12 +13,14 @@
 [![GitHub stars](https://img.shields.io/github/stars/micyo202/yan.svg?style=social&label=Stars)](https://github.com/micyo202/yan)
 [![GitHub forks](https://img.shields.io/github/forks/micyo202/yan.svg?style=social&label=Fork)](https://github.com/micyo202/yan)
 
+### 注：该项目暂缓更新，全新微服务项目*lion*已经逐步开发，该项目是基于SpringCloud的一整套方案，详情查看[lion](https://github.com/micyo202/lion)
+
 本项目是一整套整合 **Dubbo+Zookeeper+SpringMVC+Spring+MyBatis** 支持**分布式**的高效率便捷开发**RPC**框架，使开发人员更专注于业务，达到面向业务开发。<br>
 项目使用 **Maven** 构建，便于项目管理，可支持 **Oracle、MySql** 等主流数据库。<br>
 项目模块化分层明确，代码规范，便于后期维护等工作。<br>
 前端展示界面采用基于 **Boostrap** 实现的响应式布局，并集成了一系列的动画效果插件，整体界面简洁、美观大方并可优雅的与后台完成交互操作。<br>
 项目目标是为中小型企业打造全方位的J2EE企业级开发解决方案，提高工作效率。<br>
-该项目是[yan-demo](https://github.com/micyo202/yan-demo)单节点项目的**升级版**，支持**分布式**，持续更新中，敬请期待...
+该项目是[yan-demo](https://github.com/micyo202/yan-demo)单节点项目的**升级版**，支持**分布式**
 
 ## 近期更新内容
 * **beta 1.0.1：添加spring-session+redis技术，用于解决负载均衡下session共享问题**
