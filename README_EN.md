@@ -13,6 +13,8 @@
 [![GitHub stars](https://img.shields.io/github/stars/micyo202/yan.svg?style=social&label=Stars)](https://github.com/micyo202/yan)
 [![GitHub forks](https://img.shields.io/github/forks/micyo202/yan.svg?style=social&label=Fork)](https://github.com/micyo202/yan)
 
+### Note：The new micro services **lion** has developed step by step，complete solution based on SpringCloud, please look details with [https://www.jianshu.com/p/a061effe4ae5](https://www.jianshu.com/p/a061effe4ae5)
+
 This project is a complete integration of **Dubbo+Zookeeper+Spring +Spring+MyBatis** to support **distributed** efficient and convenient development of **RPC** framework, so that developers can focus on business and achieve business development.<br>
 The project is built with **Maven**, which is convenient for project management, and can support mainstream databases such as **Oracle** and **MySql**.<br>
 The project is modular and stratified, and code specification is convenient for later maintenance.<br>
