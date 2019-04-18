@@ -13,7 +13,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/micyo202/yan.svg?style=social&label=Stars)](https://github.com/micyo202/yan)
 [![GitHub forks](https://img.shields.io/github/forks/micyo202/yan.svg?style=social&label=Fork)](https://github.com/micyo202/yan)
 
-### 注：该项目暂缓更新，全新微服务项目*lion*已经逐步开发，该项目是基于SpringCloud的一整套方案，详情查看[lion](https://github.com/micyo202/lion)
+### 注：全新微服务项目**lion**已经逐步开发，基于SpringCloud的一整套方案，详情查看[https://www.jianshu.com/p/a061effe4ae5](https://www.jianshu.com/p/a061effe4ae5)
 
 本项目是一整套整合 **Dubbo+Zookeeper+SpringMVC+Spring+MyBatis** 支持**分布式**的高效率便捷开发**RPC**框架，使开发人员更专注于业务，达到面向业务开发。<br>
 项目使用 **Maven** 构建，便于项目管理，可支持 **Oracle、MySql** 等主流数据库。<br>
